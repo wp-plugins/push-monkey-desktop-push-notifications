@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Push Monkey Wordpress
- * Plugin URI: http://wordpress.org/plugins/hello-dolly/
+ * Plugin URI: https://wordpress.org/plugins/push-monkey-desktop-push-notifications/
  * Author: moWOW Studios
  * Description: Enable Safari 7 Push Notifications (Mac OS Mavericks) on each new post published.
  * Version: 0.9.2
