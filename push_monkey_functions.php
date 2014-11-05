@@ -553,7 +553,7 @@ class PushMonkeyClient {
 		$args = array( 'body' => array( 
 			'account_key' => $account_key,
 			'title' => $title,
-			'body' => $title, 
+			'body' => $body, 
 			'url_args' => $url_args,
 		) );
 		if ( $custom ) {

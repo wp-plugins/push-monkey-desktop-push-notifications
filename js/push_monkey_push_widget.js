@@ -23,6 +23,8 @@ jQuery(document).ready(function($) {
 
 		$('a.push_monkey_submit').click(function(){
 
+				var modal_id = $(this).parents('.push_monkey_modal').attr('id');
+				close_modal('#'+modal_id);
 				$('#push_monkey_push_dashboard_widget form').submit();
 			});
 
