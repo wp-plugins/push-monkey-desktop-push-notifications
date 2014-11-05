@@ -72,7 +72,7 @@ This plugin connects the WordPress API with the Push Monkey server (getpushmonke
 
 2. Activate it
 
-3. Obtain an Account Key from [Push Monkey](http://getpushmonkey.com).
+3. Obtain an Account Key from [Push Monkey](http://getpushmonkey.com/register?source=wordpress.org).
 
 4. Tell your readers about it :)
 
