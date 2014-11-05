@@ -4,7 +4,8 @@
  * Plugin URI: http://wordpress.org/plugins/hello-dolly/
  * Author: moWOW Studios
  * Description: Enable Safari 7 Push Notifications (Mac OS Mavericks) on each new post published.
- * Version: 0.9.1
+ * Version: 0.9.2
+ * Stable Tag: 0.9.2
  * Author URI: http://www.getpushmonkey.com/?source=plugin
  * License: GPL2
  */
@@ -28,6 +29,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 /* CHANGELOG:
+ *
+ * v 0.9.2
+ * - prepare assets and folder structure for WordPress.org SVN
  *
  * v 0.9.1
  * - replace iframes with API calls

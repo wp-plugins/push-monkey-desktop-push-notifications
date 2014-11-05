@@ -5,7 +5,7 @@ Tags: push notifications, push messages, Apple, Mavericks, Mac, push, notificati
 
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,7 +17,7 @@ Push Monkey lets you send push notifications directly to your readers’ desktop
 
 ![Intro image](https://dl.dropboxusercontent.com/u/1618599/cdn/push-monkey/post-push-notification-announce-gif.gif)
 
-**Why desktop Push Monkey?**
+= Why desktop Push Monkey? =
 
 = Increased Engagement =
 
@@ -72,7 +72,7 @@ This plugin connects the WordPress API with the Push Monkey server (getpushmonke
 
 2. Activate it
 
-3. Obtain an Account Key from [Push Monkey](http://getpushmonkey.com/register?source=wordpress.org).
+3. Obtain an Account Key from [Push Monkey](http://getpushmonkey.com).
 
 4. Tell your readers about it :)
 
@@ -88,6 +88,9 @@ Automatic updates should work without any problems; If you do encounter any prob
 4. Notification preview while editing a post
 
 == Changelog ==
+
+= v 0.9.2 =
+ * prepare assets and folder structure for WordPress.org SVN
 
 = v 0.9.1 =
  * replace iframes with API calls
