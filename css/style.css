@@ -1,0 +1,169 @@
+h3.mandatory {
+    color: #F64747;
+	margin:0;
+}
+
+tr.mandatory label {
+    color: #F64747;
+}
+
+tr.mandatory p {
+    color: #F64747;
+}
+
+tr.mandatory input {
+    background: none repeat scroll 0 0 #fecfcf;
+    border: 1px solid #F64747;
+}
+
+table.widefat {
+	margin-bottom:20px;
+}
+
+.section-margin-top {
+	margin-top: 80px;
+}
+
+/* ==========================================================================
+   Stats
+   ========================================================================== */
+
+.stats-container .number-box {
+	border-radius:10px;
+	color:white;
+	margin-bottom:20px;
+	padding: 10px 0;
+	text-align:center;
+}
+
+.stats-container .number-box .box-label {
+	font-size:15px;
+	line-height: 1.3em;
+	margin:0;
+	vertical-align:middle;
+}
+
+.stats-container .number-box .box-value {
+	font-size:30px;
+	font-weight:bold;
+	line-height: 1em;
+	margin:0;
+	margin-top: 4px;
+}
+
+.stats-container .box-light-orange {
+	background-color: #363636;
+    border-left: 2px solid #f64747;
+    border-right: 2px solid #2fcc70;
+}
+
+.stats-container .box-green {
+	background-color: #2fcc70;
+}
+
+.stats-container .box-orange {
+	background-color: #8e8e8b;
+}
+
+.stats-container .legend-dataset-one,
+.stats-container .legend-dataset-two,
+.stats-container .legend-dataset-three {
+	background-color:#363636;
+	border-radius:10px;
+	color:white;
+	font-size:14px;
+	margin-top:20px;
+	padding:4px 0;
+	text-align:center;
+}
+
+.stats-container .legend-dataset-two {
+	background-color:#2FCC70;
+}
+
+.stats-container .legend-dataset-three {
+	background-color:#8E8E8B;
+}
+
+#push-monkey-settings-wrapper .stats-container .col {
+	float:left;
+}
+
+#push-monkey-settings-wrapper .stats-container .doughnut-chart-wrapper .legend-dataset-two,
+#push-monkey-settings-wrapper .stats-container .doughnut-chart-wrapper .legend-dataset-three {
+	margin-left:auto;
+	margin-right:auto;
+	width:70%;
+}
+
+#push-monkey-settings-wrapper .stats-container .doughnut-chart-wrapper {
+	text-align:center;
+}
+
+#push-monkey-settings-wrapper #doughnut-chart {
+	margin:0 auto;
+}
+
+#push-monkey-settings-wrapper .stats-container .col-chart-legend {
+	padding:0 5%;
+	width: 39%;
+}
+/* ==========================================================================
+   Modal
+   ========================================================================== */
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+.push_monkey_modal {
+	background: white;
+	display:none;
+	padding: 30px; 
+	border-radius: 5px;
+
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.7); 
+	-webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); 
+	-moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+
+.push_monkey_modal p { 
+	color: #666; 
+	text-shadow: none; 
+}
+
+.push_monkey_modal_footer {
+	margin-top:30px;
+	text-align:right;
+}
+
+.push_monkey_modal_footer .button {
+	margin-left:10px;
+}
+
+/* ==========================================================================
+   Settings Page
+   ========================================================================== */
+
+.push-monkey-settings-wrapper {
+}
+
+.red {
+	background:red;
+}
+
+.blue {
+	background:blue;
+}
+
+.green {
+	background:green;
+}
+
