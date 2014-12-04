@@ -39,6 +39,10 @@ html[xmlns] .clearfix {
 	text-align:right;
 }
 
+#push-monkey-stats-dashboard-widget .inside p {
+	text-align:center;
+}
+
 #push-monkey-stats-dashboard-widget .error-message {
 	text-align:left;
 }

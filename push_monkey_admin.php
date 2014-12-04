@@ -58,9 +58,9 @@
 				</tr>
 				<?php }?>
 				<tr class="<?php if( ! $this->hasAccountKey() ){?>mandatory<?php }?>">
-				<th scope="row"> <label for="<? echo $push_monkey_account_key_key; ?>">Account Key</label> </th>
+				<th scope="row"> <label for="<?php echo $push_monkey_account_key_key; ?>">Account Key</label> </th>
 				<td> 
-					<input type="text" class="regular-text" value="<?php echo $this->accountKey(); ?>" name="<? echo $push_monkey_account_key_key; ?>" id="<?php echo $push_monkey_account_key_key; ?>"> 
+					<input type="text" class="regular-text" value="<?php echo $this->accountKey(); ?>" name="<?php echo $push_monkey_account_key_key; ?>" id="<?php echo $push_monkey_account_key_key; ?>"> 
 					<p class="description">This Account Key is used to identify your Wordpress website. You can find it <br /> by logging into your account at pushmonkey.com</p>
 				</td>
 			</tr>
@@ -92,7 +92,7 @@
 			<tbody id="the-list">
 			<?php foreach( $cats as $cat ) { ?>
 			<tr<?php if ( $alt == 1 ) { echo ' class="alternate"'; $alt = 0; } else { $alt = 1; } ?>>
-				<th scope="row"><?=$cat->cat_name?></th>
+				<th scope="row"><?php echo $cat->cat_name; ?></th>
 				<td>
 					<input type="checkbox" name="excluded_categories[]" value="<?php echo $cat->cat_ID; ?>" <?php if ( in_array( $cat->cat_ID, $options ) ) { echo 'checked="true" '; } ?>/>
 				</td>
