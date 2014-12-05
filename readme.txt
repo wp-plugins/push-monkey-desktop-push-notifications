@@ -4,8 +4,8 @@ Contributors: mowow
 Tags: push notifications, push messages, Apple, Mavericks, Mac, push, notifications, OSX, desktop notifications, subscribe, mac users, native push message, branded notifications, new post, new content, configurable, filters, subscribe via push, subscribe via notifications
 
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 0.9.4
+Tested up to: 4.0.1
+Stable tag: 0.9.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
