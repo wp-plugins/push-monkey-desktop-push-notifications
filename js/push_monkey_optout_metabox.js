@@ -14,7 +14,15 @@ jQuery( document ).ready(function( $ ) {
 			});
 		setInterval(function() {
 
-				var content = tinyMCE.activeEditor.getContent();
+				var content;
+				if ( tinyMCE.activeEditor ) {
+
+					content = tinyMCE.activeEditor.getContent();
+				} else {
+
+					content = $( 'textarea#content' ).val();
+				}
+
 				var max_len_content = 70;
 				content = content.replace(/(<([^>]+)>)/ig,"");
 				if ( content.length > max_len_content ) {

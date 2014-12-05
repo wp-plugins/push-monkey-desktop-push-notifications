@@ -194,14 +194,14 @@ class PushMonkey {
 		}
 
 		$max_len_title = 33;
-		$title = $post->post_title;
+		$title = strip_tags($post->post_title);
 		if ( strlen( $title ) > $max_len_title ) {
 
 			$title = substr( $title, 0, $max_len_title ) . '...';
 		}
 
 		$max_len_body = 70;
-		$body = $post->post_content;
+		$body = strip_tags($post->post_content);
 		if ( strlen( $body ) > $max_len_body ) {
 
 			$body = substr( $body, 0, $max_len_body ) . '...';

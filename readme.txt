@@ -89,6 +89,10 @@ Automatic updates should work without any problems; If you do encounter any prob
 
 == Changelog ==
 
+= v 0.9.5 =
+ * fix HTML tags in preview
+ * fix conflict with TinyMCE Advanced
+
 = v 0.9.4 =
  * fix some tags that used required the PHP setting short_open_tag to be on
 
