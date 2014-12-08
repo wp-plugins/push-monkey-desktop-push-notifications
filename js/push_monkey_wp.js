@@ -42,12 +42,23 @@ PushMonkeyWP.register = function () {
 		PushMonkeyWPLog.store('Push Notifications are available for Safari browser only');
 	}
 }
+
 PushMonkeyWP.check = function(){
-	permission = window.safari.pushNotification.permission(PushMonkeyWPConfig.websiteID).permission;
-	if(permission == 'default') {
-		this.register();
+
+	if ( window.safari ) {
+
+		permission = window.safari.pushNotification.permission(PushMonkeyWPConfig.websiteID).permission;
+		if( permission == 'default' ) {
+
+			this.register();
+		} else {
+
+			PushMonkeyWPLog.store( 'Already registered or rejected.' );
+		}
 	} else {
-		PushMonkeyWPLog.store('Already registered or rejected.');
+
+		PushMonkeyWPLog.store( 'Not in Safari.' );
 	}
 }
+
 PushMonkeyWP.check();

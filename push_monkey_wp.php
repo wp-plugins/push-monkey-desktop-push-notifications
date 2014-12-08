@@ -4,8 +4,8 @@
  * Plugin URI: https://wordpress.org/plugins/push-monkey-desktop-push-notifications/
  * Author: moWOW Studios
  * Description: Enable Safari 7 Push Notifications (Mac OS Mavericks) on each new post published.
- * Version: 0.9.5
- * Stable Tag: 0.9.5
+ * Version: 0.9.6
+ * Stable Tag: 0.9.6
  * Author URI: http://www.getpushmonkey.com/?source=plugin
  * License: GPL2
  */
@@ -29,6 +29,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 /* CHANGELOG:
+ *
+ * v 0.9.6
+ * - bugfixing
  *
  * v 0.9.5
  * - fix HTML tags in preview
