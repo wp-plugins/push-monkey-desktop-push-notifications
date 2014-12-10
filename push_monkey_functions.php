@@ -489,9 +489,10 @@ class PushMonkey {
 	}
 
 	function bigInvalidAccountKeyNotice() {
-?>
-	<div class="error"> <p>Set an Account Key before you can use Push Monkey. Don't have an Account Key yet? <a href="http://www.getpushmonkey.com/register?source=plugin">Click here to get one</a>. <a href="http://www.getpushmonkey.com/help?source=plugin#q4" target="_blank">More info about this &#8594;</a>.</p> </div>
-<?php
+
+		$image_url = plugins_url( '/img/plugin-big-message-image.png', __FILE__ );
+		$settings_url = admin_url( 'admin.php?page=push_monkey_main_config' );
+		require_once( dirname( __FILE__ ) . '/push_monkey_big_message.php' );
 	}
 
 	function accountKeySavedNotice() {

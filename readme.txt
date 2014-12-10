@@ -9,7 +9,7 @@ Stable tag: 0.9.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Push Monkey - engage & deligh your readers with desktop push notifications, while enjoying clear stats and seemless WordPress integration. 
+Push Monkey - engage & delight your readers with Desktop Push Notifications, while enjoying clear stats and seamless WordPress integration. 
 
 == Description ==
 
@@ -17,7 +17,7 @@ Push Monkey lets you send push notifications directly to your readers’ desktop
 
 ![Intro image](https://dl.dropboxusercontent.com/u/1618599/cdn/push-monkey/post-push-notification-announce-gif.gif)
 
-= Why desktop Push Monkey? =
+= Why Push Monkey? =
 
 = Increased Engagement =
 
@@ -88,6 +88,11 @@ Automatic updates should work without any problems; If you do encounter any prob
 4. Notification preview while editing a post
 
 == Changelog ==
+
+= v 0.9.7 =
+ * bugfixing
+ * UI updates
+ * typos fixed
 
 = v 0.9.6 =
  * bugfixing

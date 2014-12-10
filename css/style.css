@@ -167,3 +167,76 @@ table.widefat {
 	background:green;
 }
 
+/* ==========================================================================
+   Messages 
+   ========================================================================== */
+
+body.wp-admin #wpcontent div.push-monkey-unknown-client {
+	background:#E8E8E1 no-repeat;
+	background-position: 98% bottom ;
+	border:0;
+	color:#363636;
+	height:100px;
+	padding:0;
+}
+
+.push-monkey-unknown-client .button-wrapper {
+	float:left;
+	margin-top: 30px;
+	min-width: 190px;
+	width: 15%;
+}
+
+.push-monkey-unknown-client .text-wrapper {
+	float: left;
+	margin-top: 30px;
+	width: 70%;
+}
+
+.push-monkey-unknown-client .text-wrapper h4 {
+	font-size: 18px;
+    margin: 0;
+}
+
+.push-monkey-unknown-client .text-wrapper a {
+	color:#363636;
+}
+
+.push-monkey-unknown-client .text-wrapper a:hover {
+	color:#2FCC70;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in;
+    -o-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in;
+}
+
+.push-monkey-btn {
+	background:#2FCC70;
+	border-radius:10px;
+	color:white;
+	display:block;
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom:15px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:15px;
+	text-align:center;
+	text-decoration:none !important;
+	width: 150px;
+}
+
+.push-monkey-btn:hover {
+	background:#46dd88;
+	color:white;
+    -webkit-transition: background 0.1s ease-in;
+    -moz-transition: background 0.1s ease-in;
+    -ms-transition: background 0.1s ease-in;
+    -o-transition: background 0.1s ease-in;
+    transition: background 0.1s ease-in;
+}
+
+.button-wrapper .push-monkey-btn {
+	margin: auto;
+}
