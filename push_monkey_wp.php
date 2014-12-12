@@ -84,13 +84,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * - add uninstall.php
  */
 
-/* WordPress Check */
-if ( ! defined( 'abspath' ) ) {
 
-	exit;
+if ( ! defined( 'WPINC' ) ) {
+
+    die;
 }
 
-require_once( dirname( __FILE__ ) . '/includes/push_monkey_core.php' );
+require_once( dirname( __FILE__ ) . '/push_monkey_functions.php' );
 
 function run_push_monkey() {
 
