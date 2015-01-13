@@ -113,7 +113,8 @@ class PushMonkey {
 
 	function __construct() {
 
-		$this->endpointURL = "https://www.getpushmonkey.com"; //live
+		// $this->endpointURL = "https://www.getpushmonkey.com"; //live
+		$this->endpointURL = "https://magic-pushmonkey.rhcloud.com/"; //live backup
 		$this->apiClient = new PushMonkeyClient( $this->endpointURL );
 		$this->d = new PushMonkeyDebugger();
 	}

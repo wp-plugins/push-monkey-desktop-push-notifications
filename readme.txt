@@ -89,6 +89,9 @@ Automatic updates should work without any problems; If you do encounter any prob
 
 == Changelog ==
 
+= v 0.9.9.2 =
+ * bugfixing
+
 = v 0.9.9.1 =
  * bugfixing
 
