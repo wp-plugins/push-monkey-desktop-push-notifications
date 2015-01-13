@@ -5,7 +5,7 @@ Tags: push notifications, push messages, Apple, Mavericks, Mac, push, notificati
 
 Requires at least: 3.8
 Tested up to: 4.0.1
-Stable tag: 0.9.8.2
+Stable tag: 0.9.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -72,13 +72,13 @@ This plugin connects the WordPress API with the Push Monkey server (getpushmonke
 
 2. Activate it
 
-3. Obtain an Account Key from [Push Monkey](http://getpushmonkey.com).
+3. Sign in with your Push Monkey account or create a new account. More info at: [Push Monkey](https://www.getpushmonkey.com?source=readme).
 
 4. Tell your readers about it :)
 
 = Updating =
 
-Automatic updates should work without any problems; If you do encounter any problems, please [let us know](http://www.getpushmonkey.com/#contact).
+Automatic updates should work without any problems; If you do encounter any problems, please [let us know](https://www.getpushmonkey.com/#contact?source=readme).
 
 == Screenshots ==
 
@@ -88,6 +88,12 @@ Automatic updates should work without any problems; If you do encounter any prob
 4. Notification preview while editing a post
 
 == Changelog ==
+
+= v 0.9.9 =
+ * on-boarding workflow overhaul: now easier than ever. No more waiting. Account Key what? 
+ * layout update
+ * code cleanup
+ * bugfixing
 
 = v 0.9.8.2 =
  * bugfixing

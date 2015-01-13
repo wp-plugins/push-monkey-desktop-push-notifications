@@ -43,6 +43,10 @@ html[xmlns] .clearfix {
 	text-align:center;
 }
 
+#push-monkey-stats-dashboard-widget .inside div.error-message p {
+	text-align:left;
+}
+
 #push-monkey-stats-dashboard-widget .error-message {
 	text-align:left;
 }
@@ -116,45 +120,45 @@ html[xmlns] .clearfix {
    Custom Push Widget 
    ========================================================================== */
 
-#push_monkey_push_dashboard_widget .inside,
-#push_monkey_push_dashboard_widget .container {
+#push-monkey-push-dashboard-widget .inside,
+#push-monkey-push-dashboard-widget .container {
 	background:#E8E8E1;
 }
 
-#push_monkey_push_dashboard_widget .inside {
+#push-monkey-push-dashboard-widget .inside {
 	margin-top:0;
 	padding-top:11px;
 }
 
-#push_monkey_push_dashboard_widget .inside .button-primary {
+#push-monkey-push-dashboard-widget .inside .button-primary {
 	background:#2fcc70;
 	border-color:#4cae4c;
 }
 
 
-#push_monkey_push_dashboard_widget label {
+#push-monkey-push-dashboard-widget label {
 	display:block;
 }
 
-#push_monkey_push_dashboard_widget label span {
+#push-monkey-push-dashboard-widget label span {
 	color:#aaa;
 	font-size:11px;
 }
 
-#push_monkey_push_dashboard_widget .row {
+#push-monkey-push-dashboard-widget .row {
 	margin-bottom:20px;
 }
 
-#push_monkey_push_dashboard_widget input,
-#push_monkey_push_dashboard_widget textarea {
+#push-monkey-push-dashboard-widget input,
+#push-monkey-push-dashboard-widget textarea {
 	width: 100%;
 }
 
-#push_monkey_push_dashboard_widget .button {
+#push-monkey-push-dashboard-widget .button {
 	width:auto;
 }
 
-#push_monkey_push_dashboard_widget .updated-message {
+#push-monkey-push-dashboard-widget .updated-message {
 	background:#2FCC70;
 	border-radius: 10px;
 	color:white;
@@ -162,7 +166,7 @@ html[xmlns] .clearfix {
 	padding:10px;
 }
 
-#push_monkey_push_dashboard_widget .updated-message p {
+#push-monkey-push-dashboard-widget .updated-message p {
 	font-weight:normal;
 	margin:0;
 }
@@ -213,7 +217,7 @@ html[xmlns] .clearfix {
 	width: 32px;
 }
 
-#push_monkey_push_dashboard_widget .error-message,
+#push-monkey-push-dashboard-widget .error-message,
 #push-monkey-stats-dashboard-widget .error-message,
 #push_monkey_post_opt_out .error-message {
 	background:#fecfcf;
@@ -223,7 +227,7 @@ html[xmlns] .clearfix {
 	padding:10px;
 }
 
-#push_monkey_push_dashboard_widget .error-message p,
+#push-monkey-push-dashboard-widget .error-message p,
 #push-monkey-stats-dashboard-widget .error-message p,
 #push_monkey_post_opt_out .error-message p {
 	font-weight:normal;

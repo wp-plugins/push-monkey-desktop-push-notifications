@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 
-		$('#push_monkey_push_dashboard_widget .regular-text').unbind('keyup change input paste').bind('keyup change input paste',function(e){
+		$('#push-monkey-push-dashboard-widget .regular-text').unbind('keyup change input paste').bind('keyup change input paste',function(e){
 
 				var $this = $(this);
 				var val = $this.val();
@@ -12,7 +12,6 @@ jQuery(document).ready(function($) {
 			}); 
 
 		var modalTrigger = $('a[rel*=leanModal]');
-		console.log(modalTrigger);
 		modalTrigger.leanModal({ top : 200, closeButton: ".modal_close" });		
 
 		$('a.close_modal').click(function(){
@@ -25,7 +24,7 @@ jQuery(document).ready(function($) {
 
 				var modal_id = $(this).parents('.push_monkey_modal').attr('id');
 				close_modal('#'+modal_id);
-				$('#push_monkey_push_dashboard_widget form').submit();
+				$('#push-monkey-push-dashboard-widget form').submit();
 			});
 
 		function close_modal(modal_id){

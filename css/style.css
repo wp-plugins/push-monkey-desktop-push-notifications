@@ -24,6 +24,62 @@ table.widefat {
 	margin-top: 80px;
 }
 
+
+/* ==========================================================================
+   Bootstrap over-writes
+   ========================================================================== */
+
+.push-monkey {
+	color: #8e8e8b;
+	font-size:14px;
+	margin-left: 160px;
+}
+
+.push-monkey label {
+	font-weight:normal;
+    margin: 10px 0 0;
+}
+
+.push-monkey label.first {
+    margin-top: 30px;
+}
+
+.push-monkey form .btn-success {
+    margin-bottom: 20px;
+    margin-top: 30px;
+    width: 50%;
+}
+
+.push-monkey .btn-success, 
+.push-monkey .btn-success.submit {
+    background: none repeat scroll 0 0 #2ecc71;
+}
+
+.push-monkey .btn-default,
+.push-monkey .btn-primary,
+.push-monkey .btn-success,
+.push-monkey .btn-info,
+.push-monkey .btn-warning,
+.push-monkey .btn-danger {
+	box-shadow:none;
+	font-weight:bold;
+	text-shadow:none;
+}
+
+.push-monkey a {
+	color:#363636;
+	font-weight: bold;
+}
+
+.push-monkey a:hover {
+	color:#2FCC70;
+	text-decoration: none;
+	-webkit-transition: color 0.2s ease-in-out;
+	-o-transition: color 0.2s ease-in-out;
+	transition: color 0.2s ease-in-out;
+}
+
+
 /* ==========================================================================
    Stats
    ========================================================================== */
@@ -152,7 +208,68 @@ table.widefat {
    Settings Page
    ========================================================================== */
 
-.push-monkey-settings-wrapper {
+#push-monkey-settings-wrapper {
+}
+
+.push-monkey .login-box {
+	background: none repeat scroll 0 0 #363636;
+	border-left: 2px solid #f64747;
+	border-radius: 10px;
+	border-right: 2px solid #2fcc70;
+	margin: 0;
+}
+
+.push-monkey .login-box .bg-danger {
+	border-radius: 10px;
+	color:#F64747;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+.push-monkey .login-box .bg-danger {
+	border-radius: 10px;
+	color:#F64747;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+.push-monkey .new-account-box {
+	margin-top:100px;
+}
+
+form {
+}
+
+.push-monkey .header {
+	margin-bottom:70px;
+}
+
+.push-monkey .footer {
+	margin-top:70px;
+}
+
+.push-monkey form .btn-primary {
+    background: none repeat scroll 0 0 #363636;
+    border: 1px solid white;
+    color: white;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+.push-monkey form .btn-primary:active,
+.push-monkey form .btn-primary:focus,
+.push-monkey form .btn-primary:hover {
+	background:#363636;
+    border-color: #8e8e8b;
+    color: #8e8e8b;
+}
+
+.push-monkey .bg-success {
+	background: #2FCC70;
+	border-radius: 10px;
+	color:white;
+	margin-top: 20px;
+	padding: 10px;
 }
 
 .red {
@@ -165,6 +282,10 @@ table.widefat {
 
 .green {
 	background:green;
+}
+
+form.settings {
+	margin-top: 55px;
 }
 
 /* ==========================================================================

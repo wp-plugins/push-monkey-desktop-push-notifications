@@ -3,7 +3,13 @@
 		<div class="updated-message"><p>Push Notification Sent. Yay!</p></div>
 	<?php } ?>
 	<?php if(!$account_key) { ?>
-	<div class="error-message"> <p>Set an Account Key before you can use Push Monkey. Don't have an Account Key yet? <a href="http://www.getpushmonkey.com/register?source=plugin">Click here to get one</a>. <a href="http://getpushmonkey.com/help?source=plugin#q4" target="_blank">More info about this &#8594;</a></p> </div>
+	<div class="error-message"> 
+		<p>
+			Sign in before you can use Push Monkey. Don't have an account yet? 
+			<a href="<?php echo $settings_url; ?>">Click here to sign up</a>. 
+			<a href="http://www.getpushmonkey.com/help?source=plugin#q16" target="_blank">More info about this &#8594;</a>
+		</p>
+	</div>
 	<?php } ?>
 	<form method="post">
 		<div class="row">

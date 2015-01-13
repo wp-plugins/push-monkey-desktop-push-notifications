@@ -11,9 +11,10 @@ if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
 }
 
-require_once( dirname( __FILE__ ) . '/push_monkey_wp.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'push-monkey.php' );
 
 delete_option( PushMonkey::ACCOUNT_KEY_KEY );
 delete_option( PushMonkey::WEBSITE_NAME_KEY );
 delete_option( PushMonkey::WEBSITE_PUSH_ID_KEY );
 delete_option( PushMonkey::EXCLUDED_CATEGORIES_KEY );
+delete_option( PushMonkey::EMAIL_KEY );
