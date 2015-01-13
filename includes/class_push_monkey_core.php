@@ -260,6 +260,7 @@ class PushMonkey {
 			}
 		}
 		$register_url = $this->apiClient->registerURL;
+		$forgot_password_url = $this->apiClient->endpointURL . '/password_reset';
 		$return_url = admin_url( 'admin.php?page=push_monkey_main_config' );
 		$website_name = $this->website_name(); 
 		$website_url = site_url();

@@ -29,7 +29,7 @@
 										</div><!-- .col -->
 										<input type="submit" value="Sign In" class="btn btn-lg btn-success" name="push_monkey_sign_in">
 										<br /> 
-										<a class="btn btn-primary" href="/password_reset">Forgot<br /> Password?</a>
+										<a class="btn btn-primary" href="<?php echo $forgot_password_url; ?>">Forgot<br /> Password?</a>
 									</div><!-- .row -->
 								</form>
 							</div><!-- .login-box -->
