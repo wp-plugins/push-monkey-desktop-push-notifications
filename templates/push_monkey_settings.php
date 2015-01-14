@@ -169,8 +169,8 @@
 
 		<h3 class="section-margin-top">Exclude categories</h3>
 		<p class="description">
-			Posts which fall in the following categories will not send push notifications when they are posted.
-			By default, all posts send push notifications.
+			Posts which have the following categories will not send push notifications when they are posted.
+			By default, all standard posts send push notifications.
 		</p>
 		<form method="post">
 			<div class="row">
@@ -184,11 +184,11 @@
 						</thead>
 						<tbody id="the-list">
 							<?php foreach( $cats as $cat ) { ?>
-							<tr<?php if ( $alt == 1 ) { echo ' class="alternate"'; $alt = 0; } else { $alt = 1; } ?>>
-							<th scope="row"><?php echo $cat->cat_name; ?></th>
-							<td>
-								<input type="checkbox" name="excluded_categories[]" value="<?php echo $cat->cat_ID; ?>" <?php if ( in_array( $cat->cat_ID, $options ) ) { echo 'checked="true" '; } ?>/>
-							</td>
+							<tr>
+								<th scope="row"><?php echo $cat->cat_name; ?></th>
+								<td>
+									<input type="checkbox" name="excluded_categories[]" value="<?php echo $cat->cat_ID; ?>" <?php if ( in_array( $cat->cat_ID, $options ) ) { echo 'checked="true" '; } ?>/>
+								</td>
 							</tr>			
 							<?php }//foreach ?>
 						</tbody>

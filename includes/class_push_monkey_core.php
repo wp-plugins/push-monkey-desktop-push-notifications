@@ -110,11 +110,17 @@ class PushMonkey {
 	const WEBSITE_NAME_KEY = 'push_monkey_website_name';
 	const EXCLUDED_CATEGORIES_KEY = 'push_monkey_excluded_categories';
 	const USER_SIGNED_IN = 'push_monkey_user_signed_in';
+	const POST_TYPES_KEY = 'push_monkey_post_types';
 
 	function __construct() {
 
-		// $this->endpointURL = "https://www.getpushmonkey.com"; //live
-		$this->endpointURL = "https://magic-pushmonkey.rhcloud.com"; //live backup
+		if ( is_ssl() ) {
+
+			$this->endpointURL = "https://www.getpushmonkey.com"; //live			
+		} else {
+
+			$this->endpointURL = "http://www.getpushmonkey.com"; //live
+		}
 		$this->apiClient = new PushMonkeyClient( $this->endpointURL );
 		$this->d = new PushMonkeyDebugger();
 	}
@@ -142,7 +148,6 @@ class PushMonkey {
 			add_action( 'admin_notices', array( $this, 'big_invalid_account_key_notice' ) );
 		}
 	}
-
 
 	function add_dashboard_widgets() {
 
@@ -232,12 +237,7 @@ class PushMonkey {
 		$signed_in = $this->signed_in();
 
 		$options = $this->get_excluded_categories();
-		$args=array(
-			'hide_empty' => 0,
-			'order' => 'ASC'
-		);
-		$cats = get_categories( $args );
-		$alt = 0;
+		$cats = $this->get_all_categories();
 
 		$has_account_key = false;
 		$output = NULL;
@@ -268,6 +268,37 @@ class PushMonkey {
 		$logout_url = admin_url( 'admin.php?page=push_monkey_main_config&logout=1' );
 		$email = $this->get_email_text();
 		require_once( plugin_dir_path( __FILE__ ) . '../templates/push_monkey_settings.php' );
+	}
+
+	function get_all_categories() {
+
+		$args=array(
+			'hide_empty' => 0,
+			'order' => 'ASC'
+		);
+		$cats = get_categories( $args );
+		return $cats;
+	}
+
+	function get_set_post_types() {
+
+		return get_option( self::POST_TYPES_KEY );
+	}
+
+	function get_all_post_types() {
+
+		$postargs = array(
+			'public'   => true,
+			'_builtin' => false
+			);
+		$raw_post_types = get_post_types( $postargs, 'objects', 'and' );
+		$post_types = array();
+		foreach ( $raw_post_types as $key => $post_type ) {
+
+			$post_types[$key] = $post_type->labels->name;
+		}
+		$post_types['post'] = "Standard Posts";
+		return $post_types;
 	}
 
 	function add_meta_box() {

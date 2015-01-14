@@ -18,3 +18,5 @@ delete_option( PushMonkey::WEBSITE_NAME_KEY );
 delete_option( PushMonkey::WEBSITE_PUSH_ID_KEY );
 delete_option( PushMonkey::EXCLUDED_CATEGORIES_KEY );
 delete_option( PushMonkey::EMAIL_KEY );
+delete_option( PushMonkey::USER_SIGNED_IN );
+delete_option( PushMonkey::POST_TYPES_KEY );
