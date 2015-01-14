@@ -529,7 +529,7 @@ class PushMonkey {
 			$local_vars = array(
 				'website_push_id' => $this->website_push_ID(),
 				'website_name' => $this->website_name(),
-				'endpoint_url' => $this->endpointURL
+				'endpoint_url' => str_replace( 'http:', 'https:', $this->endpointURL )
 			);
 			wp_localize_script( 'push_monkey_wp', 'push_monkey_locals', $local_vars );
 		} else {

@@ -5,7 +5,7 @@ Tags: push notifications, push messages, Apple, Mavericks, Mac, push, notificati
 
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 0.9.9.3
+Stable tag: 0.9.9.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,9 @@ Automatic updates should work without any problems; If you do encounter any prob
 4. Notification preview while editing a post
 
 == Changelog ==
+
+= v 0.9.9.4 =
+ * bugfixing
 
 = v 0.9.9.3 =
  * bugfixing
