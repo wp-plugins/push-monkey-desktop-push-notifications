@@ -174,7 +174,7 @@
 		</p>
 		<form method="post">
 			<div class="row">
-				<div class="col-md-10">
+				<div class="col-md-8">
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -185,9 +185,9 @@
 						<tbody id="the-list">
 							<?php foreach( $cats as $cat ) { ?>
 							<tr>
-								<th scope="row"><?php echo $cat->cat_name; ?></th>
-								<td>
-									<input type="checkbox" name="excluded_categories[]" value="<?php echo $cat->cat_ID; ?>" <?php if ( in_array( $cat->cat_ID, $options ) ) { echo 'checked="true" '; } ?>/>
+								<td class="col-md-3"><?php echo $cat->cat_name; ?></td>
+								<td class="col-md-3">
+									<input type="checkbox" data-on-text="Yes" data-off-text="No" data-on-color="success" name="excluded_categories[]" value="<?php echo $cat->cat_ID; ?>" <?php if ( in_array( $cat->cat_ID, $options ) ) { echo 'checked="true" '; } ?>/>
 								</td>
 							</tr>			
 							<?php }//foreach ?>
@@ -198,6 +198,40 @@
 			<div class="row">
 				<div class="col-md-3">
 					<input type="submit" name="push_monkey_category_exclusion" value="Update" class="btn btn-success" />					
+				</div><!-- .col -->
+			</div><!-- .row -->
+		</form>
+
+		<h3 class="section-margin-top">Post types that send Desktop Push Notifications</h3>
+		<p class="description">
+			By default, all post types send Desktop Push Notifications.
+		</p>
+		<form method="post">
+			<div class="row">
+				<div class="col-md-8">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">Post Type</th>
+								<th scope="col">Send Desktop Push Notification?</th>
+							</tr>
+						</thead>
+						<tbody id="the-list">
+							<?php foreach( $post_types as $post_type=>$post_type_name ) { ?>
+							<tr>
+								<td class="col-md-3"><?php echo $post_type_name; ?></td>
+								<td class="col-md-3">
+									<input type="checkbox" data-on-text="Yes" data-off-text="No" data-on-color="success" name="included_post_types[]" value="<?php echo $post_type; ?>" <?php if ( array_key_exists( $post_type, $set_post_types ) ) { echo 'checked="true" '; } ?>/>
+								</td>
+							</tr>			
+							<?php }//foreach ?>
+						</tbody>
+					</table>
+				</div><!-- .col -->			
+			</div><!-- .row -->
+			<div class="row">
+				<div class="col-md-3">
+					<input type="submit" name="push_monkey_post_type_inclusion" value="Update" class="btn btn-success" />					
 				</div><!-- .col -->
 			</div><!-- .row -->
 		</form>

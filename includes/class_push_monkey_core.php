@@ -79,7 +79,6 @@ class PushMonkey {
 		}
 		if ( isset( $response->error ) ) {
 			
-			$this->d->debug('got an error');
 			$this->sign_in_error = $response->error;
 		}
 		return false;
@@ -125,6 +124,18 @@ class PushMonkey {
 		$this->d = new PushMonkeyDebugger();
 	}
 
+	function set_defaults() {
+
+		// By default all posts should send push notifications
+		$post_types = get_option( self::POST_TYPES_KEY );
+		if ( ! $post_types ) {
+			
+			$post_types = $this->get_all_post_types();
+			add_option( self::POST_TYPES_KEY, $post_types );
+		}
+	}
+
+
 	function add_actions() {
 
 		add_action( 'init', array( $this, 'process_forms' ) );
@@ -132,6 +143,8 @@ class PushMonkey {
 		add_action( 'init', array( $this, 'enqueue_scripts' ) );
 
 		add_action( 'init', array( $this, 'enqueue_styles' ) );
+
+		add_action( 'init', array( $this, 'set_defaults'), 20 );
 
 		add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
 
@@ -238,6 +251,8 @@ class PushMonkey {
 
 		$options = $this->get_excluded_categories();
 		$cats = $this->get_all_categories();
+		$set_post_types = $this->get_set_post_types();
+		$post_types = $this->get_all_post_types();
 
 		$has_account_key = false;
 		$output = NULL;
@@ -303,7 +318,12 @@ class PushMonkey {
 
 	function add_meta_box() {
 		
-		add_meta_box( 'push_monkey_post_opt_out', 'Push Monkey Options', array( $this, 'notification_preview_meta_box' ), 'post', 'side', 'high' );
+		$post_types = $this->get_all_post_types();
+		foreach ($post_types as $key => $value) {
+		
+			add_meta_box( 'push_monkey_post_opt_out', 'Push Monkey Options', 
+				array( $this, 'notification_preview_meta_box' ), $key, 'side', 'high' );		
+		}
 	}
 
 	function notification_preview_meta_box( $post ) {
@@ -386,27 +406,32 @@ class PushMonkey {
 
 			return;
 		}
+		if ( $old_status == 'publish' || $new_status != 'publish' ) {
 
-		$can_send_push = false;
-		if ( $old_status != 'publish' && $new_status == 'publish' && $post->post_type == 'post' ) {
+			return;
+		} 
+		$included_post_types = $this->get_set_post_types();
+		if ( ! array_key_exists( $post->post_type, $included_post_types ) ) {
 
-			if( $this->can_verify_optout() ) {
-
-				$optout = $_POST['push_monkey_opt_out'];
-				if( $optout != 'on' ) {
-
-					if( ! $this->post_has_excluded_category( $post ) ){
-
-						$can_send_push = true;
-					}
-					update_post_meta( $post->ID, '_push_monkey_opt_out', 'off' );
-				} else {
-
-					update_post_meta( $post->ID, '_push_monkey_opt_out', $optout );
-				}
-			}
+			return;			
 		}
+		if( ! $this->can_verify_optout() ) {
 
+			return;
+		}
+		$optout = $_POST['push_monkey_opt_out'];
+		$can_send_push = false;
+		if( $optout != 'on' ) {
+
+			if( ! $this->post_has_excluded_category( $post ) ){
+
+				$can_send_push = true;
+			}
+			update_post_meta( $post->ID, '_push_monkey_opt_out', 'off' );
+		} else {
+
+			update_post_meta( $post->ID, '_push_monkey_opt_out', $optout );
+		}
 		if( $can_send_push ) {
 
 			$title = $post->post_title;
@@ -414,7 +439,7 @@ class PushMonkey {
 			$post_id = $post->ID;
 			$this->send_push_notification( $title, $body, $post_id, false );
 		}
-	}
+	} 
 
 	function can_verify_optout() {
 
@@ -538,6 +563,8 @@ class PushMonkey {
 			wp_enqueue_script( 'push_monkey_push_widget', plugins_url( 'js/push_monkey_push_widget.js', plugin_dir_path( __FILE__ ) ) );
 			wp_enqueue_script( 'push_monkey_charts', plugins_url( 'js/Chart.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ) );
 			wp_enqueue_script( 'push_monkey_bootstrap_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js', array( 'jquery' ) );
+			wp_enqueue_script( 'push_monkey_bootstrap_switch', plugins_url( 'js/bootstrap-switch.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ) );			
+			wp_enqueue_script( 'push_monkey_switch', plugins_url( 'js/push_monkey_switch.js', plugin_dir_path( __FILE__ ) ), array( 'jquery', 'push_monkey_bootstrap_switch' ) );			
 		}
 	}
 
@@ -548,6 +575,7 @@ class PushMonkey {
 			wp_enqueue_style( 'push_monkey_bootstrap_style', plugins_url( 'css/push-monkey-bootstrap.css', plugin_dir_path( __FILE__ ) ) );
 			wp_enqueue_style( 'push_monkey_dashboard_widget_style', plugins_url( 'css/widgets.css', plugin_dir_path( __FILE__ ) ) );
 			wp_enqueue_style( 'push_monkey_style', plugins_url( 'css/style.css', plugin_dir_path( __FILE__ ) ) );
+			wp_enqueue_style( 'push_monkey_bootstrap_switch_style', plugins_url( 'css/bootstrap-switch.min.css', plugin_dir_path( __FILE__ ) ) );
 		}
 	}
 
@@ -577,6 +605,9 @@ class PushMonkey {
 		} else if ( isset( $_POST['push_monkey_sign_in'] ) ) {	
 			
 			$this->process_sign_in( $_POST );
+		} else if ( isset( $_POST['push_monkey_post_type_inclusion'] ) ) {
+
+			$this->process_post_type_inclusion( $_POST );
 		}
 	}
 
@@ -609,9 +640,27 @@ class PushMonkey {
 
 	function process_category_exclusion( $post ) {
 
-		update_option( self::EXCLUDED_CATEGORIES_KEY, $post['excluded_categories'] );
+		$categories = array();
+		if ( isset( $post['excluded_categories'] ) ) {
 
+			$categories = $post['excluded_categories'];
+		}
+		update_option( self::EXCLUDED_CATEGORIES_KEY, $categories );
 		add_action( 'admin_notices', array( $this, 'excluded_categories_saved_notice' ) );
+	}
+
+	function process_post_type_inclusion( $post ) {
+
+		$post_types = array();
+		if ( isset($post['included_post_types'] ) ) {
+
+			foreach ($post['included_post_types'] as $value) {
+				
+				$post_types[$value] = 1;
+			}
+		}
+		update_option( self::POST_TYPES_KEY, $post_types );
+		add_action( 'admin_notices', array( $this, 'included_post_types_saved_notice' ) );
 	}
 
 	function process_push( $post ) {
@@ -634,5 +683,10 @@ class PushMonkey {
 	function excluded_categories_saved_notice() {
 
 		echo '<div class="updated"><p>Excluded categories successfuly updated! *victory dance*</p></div>';
+	}
+
+	function included_post_types_saved_notice() {
+
+		echo '<div class="updated"><p>Included Post Types successfuly updated! *high five*</p></div>';	
 	}
 }

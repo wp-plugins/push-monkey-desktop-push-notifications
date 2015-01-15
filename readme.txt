@@ -5,7 +5,7 @@ Tags: push notifications, push messages, Apple, Mavericks, Mac, push, notificati
 
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 0.9.9.4
+Stable tag: 0.9.9.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -33,7 +33,7 @@ Your readers don't have to install any additional apps or plugins. They just acc
 
 = Granular Filtering =
 
-You can select which post categories don't send push notifications, as easy as you can say ba-na-na. No spam around here!
+You can select which post categories or post types don't send push notifications, as easy as you can say ba-na-na. No spam around here!
 
 = Non-intrusive =
 
@@ -88,6 +88,9 @@ Automatic updates should work without any problems; If you do encounter any prob
 4. Notification preview while editing a post
 
 == Changelog ==
+
+= v 0.9.9.5 =
+ * more advanced granular filtering. You can now choose which custom post types send Safari Push Notifications
 
 = v 0.9.9.4 =
  * bugfixing
