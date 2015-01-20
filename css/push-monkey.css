@@ -37,12 +37,14 @@
 .push-monkey-theme .noty_message {
     font-size: 14px;
     letter-spacing: 1px;
+    line-height: 1.5;
     padding: 0 30px;
 }
 
 .push-monkey-theme .noty_message img {
     height: 34px;
     margin-right: 30px;
+    vertical-align: middle;
     width: 65px;
 }
 
