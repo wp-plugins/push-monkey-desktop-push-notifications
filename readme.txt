@@ -9,7 +9,7 @@ Stable tag: 0.9.9.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Engage & delight your readers with Safari Push Notifications sent directly to their desktops, while enjoying clear stats and seamless WordPress integration.
+Engage & delight your readers with Safari Push Notifications sent directly to their desktops, while enjoying clear stats and seamless integration.
 
 == Description ==
 
@@ -23,41 +23,42 @@ Push Monkey lets you send push notifications directly to your readers’ desktop
 
 Readers can be informed about your content at all times: when reading other websites or while working in other apps, with the browser closed. Even when the computer is not active - it displays all missed notifications the moment it wakes up.
 
-= No Monkey Business =
-
-Sending notifications on a big and reliable scale is not trivial, but our solid high-availability cloud back-end has already delivered millions of notifications...and it's not stopping here. 
-
 = Native outreach =
 
 Your readers don't have to install any additional apps or plugins. They just accept receiving notifications from your website and presto!
 
 = Granular Filtering =
 
-You can select which post categories or post types don't send push notifications, as easy as you can say ba-na-na. No spam around here!
-
-= Non-intrusive =
-
-Push notifications reach a sweet balance between informative and non-intrusive. They appear above all other windows and if not clicked on, disappear after a few seconds.
-
-= Visually branded for your needs =
-
-Push Monkey is fully white-label. Your readers don't get to see any crazy bananas from us. Your logo, your text, your rules!
-
-= Easy-to-integrate =
-
-Fast and easy install and set up, hardly anything to configure. The monkeys do all the pushing so you can focus on your content and readers.   
-
-= Statistics =
-
-The plugin provides essential usage and engagement data available directly in your Wordpress dashboard so you can create the best experience for your subscribers.
+Easily decide and control for what type of content to send out notifications. Filter by custom post type and by category for standard posts. No content clutter around here!
 
 = Automatic =
 
 By default, push notifications are sent automatically when you publish a new post. This workflow doesn't sound cool? No worries, we have a more granular filtering and custom push notifications.
 
+= Statistics =
+
+The plugin provides essential usage and engagement data available directly in your Wordpress dashboard so you can create the best experience for your subscribers.
+
+= Visually branded for your needs =
+
+Push Monkey is fully white-label. Your readers don't get to see any crazy bananas from us. Your logo, your text, your rules!
+
 = Raised awareness for Mac readers not using Safari =
 
 Even if your readers visit your website using a different browser than Safari, they will see a banner letting them know that they can subscribe to Desktop Push Notifications.
+
+= Non-intrusive =
+
+Push notifications reach a sweet balance between informative and non-intrusive. They appear above all other windows and if not clicked on, disappear after a few seconds.
+
+= Easy-to-integrate =
+
+Fast and easy install and set up, hardly anything to configure. The monkeys do all the pushing so you can focus on your content and readers.   
+
+= No Monkey Business =
+
+Sending notifications on a big and reliable scale is not trivial, but our solid high-availability cloud back-end has already delivered millions of notifications...and it's not stopping here. 
+
 
 **NOTE:**
 Currently only Safari from OS X Mavericks (and newer) is supported. Firefox and Chrome are coming soon.
