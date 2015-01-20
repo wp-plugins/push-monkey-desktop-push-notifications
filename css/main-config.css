@@ -1,3 +1,8 @@
 html {
-	background-color:#E8E8E1;
+	background:#E8E8E1 !important;
+}
+
+#wpwrap, 
+body.login {
+	background: #E8E8E1 !important;
 }

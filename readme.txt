@@ -1,15 +1,15 @@
 === Push Monkey - Native Desktop Push Notifications for WordPress ===
 
 Contributors: mowow
-Tags: push notifications, push messages, Apple, Mavericks, Mac, push, notifications, OSX, desktop notifications, subscribe, mac users, native push message, branded notifications, new post, new content, configurable, filters, subscribe via push, subscribe via notifications
+Tags: push notifications, push messages, Safari, Apple, Mavericks, Mac, push, notifications, OSX, desktop notifications, subscribe, mac users, native push message, branded notifications, new post, new content, configurable, filters, subscribe via push, subscribe via notifications
 
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 0.9.9.5
+Stable tag: 0.9.9.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Push Monkey - engage & delight your readers with Desktop Push Notifications, while enjoying clear stats and seamless WordPress integration. 
+Engage & delight your readers with Safari Push Notifications sent directly to their desktops, while enjoying clear stats and seamless WordPress integration.
 
 == Description ==
 
@@ -55,6 +55,10 @@ The plugin provides essential usage and engagement data available directly in yo
 
 By default, push notifications are sent automatically when you publish a new post. This workflow doesn't sound cool? No worries, we have a more granular filtering and custom push notifications.
 
+= Raised awareness for Mac readers not using Safari =
+
+Even if your readers visit your website using a different browser than Safari, they will see a banner letting them know that they can subscribe to Desktop Push Notifications.
+
 **NOTE:**
 Currently only Safari from OS X Mavericks (and newer) is supported. Firefox and Chrome are coming soon.
 
@@ -86,8 +90,13 @@ Automatic updates should work without any problems; If you do encounter any prob
 2. The stats widget visible on the WordPress Dashboard
 3. Granular Filtering of which post categories don't send push notifications
 4. Notification preview while editing a post
+5. Informational banner seen by Mac readers who come to your website from other browsers than Safari
 
 == Changelog ==
+
+= v 0.9.9.6 =
+ * banner improvements: remember users who disabled the banner, improved animations
+ * you can now filter which custom post types send Desktop Push Notifications
 
 = v 0.9.9.5 =
  * more advanced granular filtering. You can now choose which custom post types send Safari Push Notifications

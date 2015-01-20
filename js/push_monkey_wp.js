@@ -1,3 +1,7 @@
+/*
+ * Version: 0.9.9.6
+ */
+
 var PushMonkeyWPConfig = {};
 PushMonkeyWPConfig.endPoint = push_monkey_locals.endpoint_url + '/push'; // DO NOT CHANGE!
 PushMonkeyWPConfig.websiteID = push_monkey_locals.website_push_id; 
@@ -61,4 +65,119 @@ PushMonkeyWP.check = function(){
 	}
 }
 
+PushMonkeyWP.setCookie = function(name, value, days) {
+
+    var expires;
+    if (days) {
+
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+
+        expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+PushMonkeyWP.getCookie = function(c_name) {
+
+    if (document.cookie.length > 0) {
+
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return false;
+}
+
 PushMonkeyWP.check();
+
+jQuery(document).ready(function($) {
+
+	function generate_banner(type) {
+
+		if (push_monkey_locals.banner_position == 'disabled') {
+
+			return;
+		};
+
+		var pgwBrowser = $.pgwBrowser();
+		if (pgwBrowser.os.group != 'Mac OS') {
+
+			return;
+		}
+
+		if (pgwBrowser.browser.group == 'Safari') {
+
+			return;
+		};
+
+		if (push_monkey_locals.banner_position == 'top' || push_monkey_locals.banner_position == 'bottom') {
+
+			var text = "<img src='" + push_monkey_locals.banner_icon_url + "' />Stay up to date with <strong>" + 
+			push_monkey_locals.website_name + "</strong> &#8212; open this website in Safari to sign up for Desktop Push Notifications";
+		} else {
+
+			var text = "<img src='" + push_monkey_locals.banner_icon_url_v2 + "' />Stay up to date with <strong>" + 
+			push_monkey_locals.website_name + "</strong><br /><br />Open this website in Safari to sign up for Desktop Push Notifications";
+		}
+
+		var openAnimation = 'animated fadeInDown';
+		var closeAnimation = 'animated fadeOutUp';
+		if (push_monkey_locals.banner_position.indexOf('bottom') >= 0) {
+
+			openAnimation = 'animated fadeInUp';
+			closeAnimation = 'animated fadeOutDown';
+		}
+
+		var n = noty({
+
+			text        : text,
+			type        : type,
+			dismissQueue: true,
+			closeWith   : ['click'],
+			layout      : push_monkey_locals.banner_position,
+			theme       : 'push-monkey-theme',
+			maxVisible  : 10,
+			closeWith   : ['button', 'click'],
+			animation   : {
+
+                open  : openAnimation,
+                close : closeAnimation,
+                easing: 'swing',
+                speed : 1000
+            },
+            callback 	: {
+
+            	onClose:   function() {
+
+            		var counter_cookie = PushMonkeyWP.getCookie('push_monkey_banner_counter');
+            		if (!counter_cookie) {
+
+            			PushMonkeyWP.setCookie('push_monkey_banner_counter', 1, 365);            			
+            		} else {
+
+            			PushMonkeyWP.setCookie('push_monkey_banner_dismissed', 1, 365);
+            		}
+            	}
+            }
+		});
+	}
+
+	$(document).ready(function () {
+
+		if (!PushMonkeyWP.getCookie('push_monkey_banner_dismissed')) {
+
+			generate_banner('success');
+		}
+	});
+});

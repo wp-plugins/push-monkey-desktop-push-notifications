@@ -167,12 +167,52 @@
 			</div><!-- .row -->
 		</form>
 
-		<h3 class="section-margin-top">Exclude categories</h3>
+		<h3 class="section-margin-top">Post types that send Desktop Push Notifications</h3>
 		<p class="description">
-			Posts which have the following categories will not send push notifications when they are posted.
-			By default, all standard posts send push notifications.
+			By default, all post types send Desktop Push Notifications.
 		</p>
-		<form method="post">
+		<form method="post" id="post-types">
+			<div class="row">
+				<div class="col-md-8">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">Post Type</th>
+								<th scope="col">Send Desktop Push Notification?</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach( $post_types as $post_type=>$post_type_name ) { ?>
+							<tr>
+								<td class="col-md-3"><?php echo $post_type_name; ?></td>
+								<td class="col-md-3">
+									<input type="checkbox" data-on-text="Yes" data-off-text="No" data-on-color="success" name="included_post_types[]" value="<?php echo $post_type; ?>" <?php if ( array_key_exists( $post_type, $set_post_types ) ) { echo 'checked="true" '; } ?>/>
+								</td>
+							</tr>			
+							<?php }//foreach ?>
+						</tbody>
+					</table>
+				</div><!-- .col -->			
+			</div><!-- .row -->
+			<div class="row">
+				<div class="col-md-3">
+					<input type="submit" name="push_monkey_post_type_inclusion" value="Update" class="btn btn-success" />					
+				</div><!-- .col -->
+			</div><!-- .row -->
+		</form>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3 class="section-margin-top">Exclude categories</h3>
+				<p class="description">
+					Standard Posts which have the following categories will not send push notifications when they are posted.
+					By default, all standard posts send push notifications.
+					If standard post types are configured to not send Desktop Push Notifications (from the switches above), 
+					category exclusion is disabled.
+				</p>
+			</div><!-- .col -->
+		</div><!-- .row -->
+		<form method="post" id="post-categories">
 			<div class="row">
 				<div class="col-md-8">
 					<table class="table table-striped">
@@ -182,7 +222,7 @@
 								<th scope="col">Exclude from Push Monkey Notifications?</th>
 							</tr>
 						</thead>
-						<tbody id="the-list">
+						<tbody>
 							<?php foreach( $cats as $cat ) { ?>
 							<tr>
 								<td class="col-md-3"><?php echo $cat->cat_name; ?></td>
@@ -202,39 +242,47 @@
 			</div><!-- .row -->
 		</form>
 
-		<h3 class="section-margin-top">Post types that send Desktop Push Notifications</h3>
-		<p class="description">
-			By default, all post types send Desktop Push Notifications.
-		</p>
-		<form method="post">
-			<div class="row">
-				<div class="col-md-8">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th scope="col">Post Type</th>
-								<th scope="col">Send Desktop Push Notification?</th>
-							</tr>
-						</thead>
-						<tbody id="the-list">
-							<?php foreach( $post_types as $post_type=>$post_type_name ) { ?>
-							<tr>
-								<td class="col-md-3"><?php echo $post_type_name; ?></td>
-								<td class="col-md-3">
-									<input type="checkbox" data-on-text="Yes" data-off-text="No" data-on-color="success" name="included_post_types[]" value="<?php echo $post_type; ?>" <?php if ( array_key_exists( $post_type, $set_post_types ) ) { echo 'checked="true" '; } ?>/>
-								</td>
-							</tr>			
-							<?php }//foreach ?>
-						</tbody>
-					</table>
-				</div><!-- .col -->			
-			</div><!-- .row -->
-			<div class="row">
-				<div class="col-md-3">
-					<input type="submit" name="push_monkey_post_type_inclusion" value="Update" class="btn btn-success" />					
-				</div><!-- .col -->
-			</div><!-- .row -->
-		</form>
+		<div class="row">
+			<div class="col-md-8">
+				<h3 class="section-margin-top">Subscribe Banner</h3>
+				<p class="description">
+					When readers access your website from a Mac, but not using Safari, you
+					can display a Subscribe Banner, to let them know about Desktop Push Notifications.
+					<a href="http://www.getpushmonkey.com/help?source=plugin#q15" target="_blank">More info about this &#8594;</a>
+				</p>				
+			</div><!-- .col -->
+			<div class="col-md-8">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Position</label>
+						<div class="col-sm-3">
+							<select class="form-control select-picker" data-style="btn-success">
+								<option value="top" <?php if ( $banner_position == 'top' ) { echo 'selected="selected"'; } ?>>Top </option>
+								<option value="topLeft" <?php if ( $banner_position == 'topLeft' ) { echo 'selected="selected"'; } ?>>Top Left</option>
+								<option value="centerRight" <?php if ( $banner_position == 'centerRight' ) { echo 'selected="selected"'; } ?>>Center Right</option>
+								<option value="centerLeft" <?php if ( $banner_position == 'centerLeft' ) { echo 'selected="selected"'; } ?>>Center Left</option>
+								<option value="topRight" <?php if ( $banner_position == 'topRight' ) { echo 'selected="selected"'; } ?>>Top Right</option>
+								<option value="bottom" <?php if ( $banner_position == 'bottom' ) { echo 'selected="selected"'; } ?>>Bottom</option>
+								<option value="bottomLeft" <?php if ( $banner_position == 'bottomLeft' ) { echo 'selected="selected"'; } ?>>Bottom Left</option>
+								<option value="bottomRight" <?php if ( $banner_position == 'bottomRight' ) { echo 'selected="selected"'; } ?>>Bottom Right</option>
+								<option value="disabled" <?php if ( $banner_position == 'disabled' ) { echo 'selected="selected"'; } ?>>Disabled</option>
+							</select>
+						</div>
+						<div class="col-sm-2">
+							<div class="banner-demo text-center">
+								<div class="banner <?php echo $banner_position_classes[$banner_position]; ?> text-center"></div>
+								<span>Preview</span>
+							</div>
+						</div><!-- .col -->
+						<div class="col-sm-2" id="position-save-cue">
+							<p class="bg-success">
+							<span class="glyphicon glyphicon-ok"></span> Saved
+							</p>
+						</div><!-- .col -->
+					</div>
+				</form>
+			</div><!-- .col -->
+		</div><!-- .row -->
 	</div><!-- .container-fluid -->
 </div><!-- .push-monkey -->
 

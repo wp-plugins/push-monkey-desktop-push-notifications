@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_client.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_ajax.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_banner.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_debugger.php' );
 
 
@@ -44,7 +46,7 @@ class PushMonkey {
 		return $account_key;
 	}
 
-	function account_key_is_valid( $account_key ) {
+	public function account_key_is_valid( $account_key ) {
 
 		if( ! strlen( $account_key ) ) {
 
@@ -101,8 +103,6 @@ class PushMonkey {
 		return '';
 	}
 
-	/* Private */
-
 	const ACCOUNT_KEY_KEY = 'push_monkey_account_key';
 	const EMAIL_KEY = 'push_monkey_account_email_key';
 	const WEBSITE_PUSH_ID_KEY = 'push_monkey_website_push_id_key';
@@ -110,6 +110,8 @@ class PushMonkey {
 	const EXCLUDED_CATEGORIES_KEY = 'push_monkey_excluded_categories';
 	const USER_SIGNED_IN = 'push_monkey_user_signed_in';
 	const POST_TYPES_KEY = 'push_monkey_post_types';
+
+	/* Private */
 
 	function __construct() {
 
@@ -122,6 +124,8 @@ class PushMonkey {
 		}
 		$this->apiClient = new PushMonkeyClient( $this->endpointURL );
 		$this->d = new PushMonkeyDebugger();
+		$this->ajax = new PushMonkeyAjax();
+		$this->banner = new PushMonkeyBanner();
 	}
 
 	function set_defaults() {
@@ -133,8 +137,13 @@ class PushMonkey {
 			$post_types = $this->get_all_post_types();
 			add_option( self::POST_TYPES_KEY, $post_types );
 		}
-	}
 
+		// By default, the banner is at the top
+		if ( ! $this->banner->get_position() ) {
+
+			$this->banner->save_position( 'top' );
+		}
+	}
 
 	function add_actions() {
 
@@ -160,6 +169,8 @@ class PushMonkey {
 
 			add_action( 'admin_notices', array( $this, 'big_invalid_account_key_notice' ) );
 		}
+
+		add_action( 'wp_ajax_push_monkey_banner_position', array( $this->ajax, 'banner_position_changed' ) );
 	}
 
 	function add_dashboard_widgets() {
@@ -253,6 +264,18 @@ class PushMonkey {
 		$cats = $this->get_all_categories();
 		$set_post_types = $this->get_set_post_types();
 		$post_types = $this->get_all_post_types();
+		$banner_position = $this->banner->get_position();
+		$banner_position_classes = array( 
+			'top' => 'banner-top', 
+			'bottom' => 'banner-bottom',
+			'disabled' => 'banner-disabled',
+			'topLeft' => 'banner-top-left',
+			'topRight' => 'banner-top-right',
+			'bottomLeft' => 'banner-bottom-left',
+			'bottomRight' => 'banner-bottom-right',
+			'centerLeft' => 'banner-center-left',
+			'centerRight' => 'banner-center-right'
+			 );
 
 		$has_account_key = false;
 		$output = NULL;
@@ -550,11 +573,16 @@ class PushMonkey {
 
 		if ( ! is_admin() ) {
 
-			wp_enqueue_script( 'push_monkey_wp', plugins_url( 'js/push_monkey_wp.js', plugin_dir_path( __FILE__ ) ) );
+			wp_enqueue_script( 'push_monkey_noty', plugins_url( 'js/jquery.noty.packaged.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ) );
+			wp_enqueue_script( 'push_monkey_pgwBrowser', plugins_url( 'js/pgwbrowser.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ) );
+			wp_enqueue_script( 'push_monkey_wp', plugins_url( 'js/push_monkey_wp.js', plugin_dir_path( __FILE__ ) ), array( 'push_monkey_pgwBrowser' ) );
 			$local_vars = array(
 				'website_push_id' => $this->website_push_ID(),
 				'website_name' => $this->website_name(),
-				'endpoint_url' => str_replace( 'http:', 'https:', $this->endpointURL )
+				'endpoint_url' => str_replace( 'http:', 'https:', $this->endpointURL ),
+				'banner_icon_url' => plugins_url( 'img/banner-icon.png', dirname( __FILE__ ) ),
+				'banner_icon_url_v2' => plugins_url( 'img/banner-icon-v2.png', dirname( __FILE__ ) ),
+				'banner_position' => $this->banner->get_position()
 			);
 			wp_localize_script( 'push_monkey_wp', 'push_monkey_locals', $local_vars );
 		} else {
@@ -564,7 +592,9 @@ class PushMonkey {
 			wp_enqueue_script( 'push_monkey_charts', plugins_url( 'js/Chart.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ) );
 			wp_enqueue_script( 'push_monkey_bootstrap_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js', array( 'jquery' ) );
 			wp_enqueue_script( 'push_monkey_bootstrap_switch', plugins_url( 'js/bootstrap-switch.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ) );			
-			wp_enqueue_script( 'push_monkey_switch', plugins_url( 'js/push_monkey_switch.js', plugin_dir_path( __FILE__ ) ), array( 'jquery', 'push_monkey_bootstrap_switch' ) );			
+			wp_enqueue_script( 'push_monkey_bootstrap_select', plugins_url( 'js/bootstrap-select.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery', 'push_monkey_bootstrap_js' ) );			
+			wp_enqueue_script( 'push_monkey_admin', plugins_url( 'js/push_monkey_admin.js', plugin_dir_path( __FILE__ ) ), 
+				array( 'jquery', 'push_monkey_bootstrap_switch', 'push_monkey_bootstrap_select' ) );
 		}
 	}
 
@@ -576,6 +606,11 @@ class PushMonkey {
 			wp_enqueue_style( 'push_monkey_dashboard_widget_style', plugins_url( 'css/widgets.css', plugin_dir_path( __FILE__ ) ) );
 			wp_enqueue_style( 'push_monkey_style', plugins_url( 'css/style.css', plugin_dir_path( __FILE__ ) ) );
 			wp_enqueue_style( 'push_monkey_bootstrap_switch_style', plugins_url( 'css/bootstrap-switch.min.css', plugin_dir_path( __FILE__ ) ) );
+			wp_enqueue_style( 'push_monkey_bootstrap_select', plugins_url( 'css/bootstrap-select.min.css', plugin_dir_path( __FILE__ ) ) );
+		} else {
+
+			wp_enqueue_style( 'push_monkey_animate', plugins_url( 'css/animate.css', plugin_dir_path( __FILE__ ) ) );			
+			wp_enqueue_style( 'push_monkey', plugins_url( 'css/push-monkey.css', plugin_dir_path( __FILE__ ) ) );			
 		}
 	}
 
