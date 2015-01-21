@@ -91,6 +91,7 @@ class PushMonkey {
 		update_option( self::USER_SIGNED_IN, false );
 		delete_option( self::ACCOUNT_KEY_KEY );
 		delete_option( self::EMAIL_KEY );
+		delete_option( self::WEBSITE_PUSH_ID_KEY );
 	}
 
 	public function get_email_text() {
@@ -117,10 +118,12 @@ class PushMonkey {
 
 		if ( is_ssl() ) {
 
-			$this->endpointURL = "https://www.getpushmonkey.com"; //live			
+			// $this->endpointURL = "https://www.getpushmonkey.com"; //live			
+			$this->endpointURL = "https://dev-pushmonkeymowow.rhcloud.com"; //test						
 		} else {
 
-			$this->endpointURL = "http://www.getpushmonkey.com"; //live
+			// $this->endpointURL = "http://www.getpushmonkey.com"; //live
+			$this->endpointURL = "https://dev-pushmonkeymowow.rhcloud.com"; //test						
 		}
 		$this->apiClient = new PushMonkeyClient( $this->endpointURL );
 		$this->d = new PushMonkeyDebugger();
@@ -276,9 +279,13 @@ class PushMonkey {
 			'centerLeft' => 'banner-center-left',
 			'centerRight' => 'banner-center-right'
 			 );
+		
 
 		$has_account_key = false;
 		$output = NULL;
+		$plan_name = NULL;
+		$plan_can_upgrade = false;
+		$plan_expired = false;
 		$placeholder_url = plugins_url( 'img/plugin-stats-placeholder.jpg', plugin_dir_path( __FILE__ ) );
 		$img_notifs_src = plugins_url( 'img/plugin-feature-image-notifications.png', plugin_dir_path( __FILE__ ) );
 		$img_stats_src = plugins_url( 'img/plugin-feature-image-stats.png', plugin_dir_path( __FILE__ ) );
@@ -297,6 +304,10 @@ class PushMonkey {
 				$output = json_decode( $body ); 
 				$this->d->debug( print_r( $output, true ) );
 			}
+			$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
+			$plan_name = isset( $plan_response->plan_name ) ? $plan_response->plan_name : NULL;
+			$plan_can_upgrade = isset( $plan_response->can_upgrade ) ? $plan_response->can_upgrade : false;
+			$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;
 		}
 		$register_url = $this->apiClient->registerURL;
 		$forgot_password_url = $this->apiClient->endpointURL . '/password_reset';
@@ -305,6 +316,7 @@ class PushMonkey {
 		$website_url = site_url();
 		$logout_url = admin_url( 'admin.php?page=push_monkey_main_config&logout=1' );
 		$email = $this->get_email_text();
+		$upgrade_url = $this->apiClient->endpointURL . '/dashboard?upgrade_plan=1&source=plugin';
 		require_once( plugin_dir_path( __FILE__ ) . '../templates/push_monkey_settings.php' );
 	}
 
@@ -556,6 +568,13 @@ class PushMonkey {
 	}
 
 	function website_push_ID() {
+
+		$stored_website_push_id = get_option( self::WEBSITE_PUSH_ID_KEY, false);
+
+		if ( $stored_website_push_id ) {
+		
+			return $stored_website_push_id;
+		}
 
 		$resp = $this->apiClient->get_website_push_ID( $this->account_key() );
 		if ( isset( $resp->website_push_id ) ) {

@@ -94,8 +94,24 @@
 			</div><!-- .col -->	
 			<div class="col-md-4 text-right">
 				<span><?php echo $email; ?></span> 
-
 				<a href="<?php echo $logout_url; ?>">Sign Out</a>
+				<?php if ( $plan_name ) { ?>
+				<br /><br />
+				<div>
+					<p>You're rocking the <strong><?php echo $plan_name; ?></strong> plan.</p>
+					<?php if ( $plan_can_upgrade ) { ?>
+					<a class="btn btn-success btn-xs" href="<?php echo $upgrade_url; ?>" target="_blank">Want to upgrade?</a> 
+					<?php } ?>
+				</div>
+				<?php } else if ( $plan_expired ) { ?>
+				<br /><br />
+				<div>	
+					<p class="text-danger">Your plan expired.</p>
+					<?php if ( $plan_can_upgrade ) { ?>
+					<a class="btn btn-danger btn-xs" href="<?php echo $upgrade_url; ?>" target="_blank">Want to upgrade?</a> 
+					<?php } ?>
+				</div>
+				<?php } ?>
 			</div><!-- .col -->
 		</div><!-- .row --> 
 		<?php if( $registered ) { ?>

@@ -88,8 +88,32 @@ class PushMonkeyClient {
 		$response = wp_remote_post( $url, $args );
 		if( is_wp_error( $response ) ) {
 
-			echo 'Error Found ( '.$response->get_error_message().' )';
+			$this->d->debug('send_push_notification '.$response->get_error_message());
 		}
+	}
+
+	public function get_plan_name( $account_key ) {
+
+		$url = $this->endpointURL . '/clients/api/get_plan_name';
+		$args = array( 'body' => array( 'account_key' => $account_key ) );
+
+		$response = wp_remote_post( $url, $args );
+
+		if( is_wp_error( $response ) ) {
+
+			return ( object ) array( 'error' => $response->get_error_message() );
+		} 
+		$body = wp_remote_retrieve_body( $response );
+		$output = json_decode( $body ); 
+		if ( isset( $output->error ) ) {
+			
+			$this->d->debug('get_plan_name: ' . $output->error);
+			return $output->error;
+		} else {
+
+			return $output;
+		}
+		return '';
 	}
 
 	/* Private */
