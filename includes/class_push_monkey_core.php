@@ -118,12 +118,10 @@ class PushMonkey {
 
 		if ( is_ssl() ) {
 
-			// $this->endpointURL = "https://www.getpushmonkey.com"; //live			
-			$this->endpointURL = "https://dev-pushmonkeymowow.rhcloud.com"; //test						
+			$this->endpointURL = "https://www.getpushmonkey.com"; //live			
 		} else {
 
-			// $this->endpointURL = "http://www.getpushmonkey.com"; //live
-			$this->endpointURL = "https://dev-pushmonkeymowow.rhcloud.com"; //test						
+			$this->endpointURL = "http://www.getpushmonkey.com"; //live
 		}
 		$this->apiClient = new PushMonkeyClient( $this->endpointURL );
 		$this->d = new PushMonkeyDebugger();
