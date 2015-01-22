@@ -52,7 +52,18 @@ class PushMonkeyClient {
 		$stats_api_url = $this->endpointURL . '/stats/api';
 		$args = array( 'body' => array( 'account_key' => $account_key ) );
 		$response = wp_remote_post( $stats_api_url, $args );
-		return $response;
+		if( is_wp_error( $response ) ) {
+
+			$this->d->debug( $response->get_error_message() );
+			return ( object ) array( 'error' => $response->get_error_message() );
+		} else {
+
+			$body = wp_remote_retrieve_body( $response );
+			$output = json_decode( $body ); 
+			$this->d->debug( print_r( $output, true ) );
+			return $output;
+		}
+		return false;
 	}
 
 	public function get_website_push_ID( $account_key ) {

@@ -100,7 +100,7 @@
 				<div>
 					<p>You're rocking the <strong><?php echo $plan_name; ?></strong> plan.</p>
 					<?php if ( $plan_can_upgrade ) { ?>
-					<a class="btn btn-success btn-xs" href="<?php echo $upgrade_url; ?>" target="_blank">Want to upgrade?</a> 
+					<a class="btn btn-success btn-xs" href="<?php echo $upgrade_url; ?>" target="_blank">Upgrade Now?</a> 
 					<?php } ?>
 				</div>
 				<?php } else if ( $plan_expired ) { ?>
@@ -108,7 +108,7 @@
 				<div>	
 					<p class="text-danger">Your plan expired.</p>
 					<?php if ( $plan_can_upgrade ) { ?>
-					<a class="btn btn-danger btn-xs" href="<?php echo $upgrade_url; ?>" target="_blank">Want to upgrade?</a> 
+					<a class="btn btn-danger btn-xs" href="<?php echo $upgrade_url; ?>" target="_blank">Upgrade Now</a> 
 					<?php } ?>
 				</div>
 				<?php } ?>

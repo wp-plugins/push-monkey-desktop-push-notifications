@@ -171,6 +171,11 @@ class PushMonkey {
 			add_action( 'admin_notices', array( $this, 'big_invalid_account_key_notice' ) );
 		}
 
+		if ( $this->can_show_expiration_notice() ) {
+			
+			add_action( 'admin_notices', array( $this, 'big_expired_plan_notice' ) );
+		}
+
 		add_action( 'wp_ajax_push_monkey_banner_position', array( $this->ajax, 'banner_position_changed' ) );
 	}
 
@@ -191,7 +196,8 @@ class PushMonkey {
 			$account_key = $this->account_key();
 		}
 		$settings_url = admin_url( 'admin.php?page=push_monkey_main_config&push_monkey_signup=1' );
-		require_once( plugin_dir_path( __FILE__ ) . '../templates/widgets/push_monkey_push_widget.php' ); //TODO: move template loading to a TemplateLoader
+		require_once( plugin_dir_path( __FILE__ ) . '../templates/widgets/push_monkey_push_widget.php' ); 
+		//TODO: move template loading to a TemplateLoader
 	}
 
 	function stats_widget() {
@@ -212,17 +218,8 @@ class PushMonkey {
 		} else {
 
 			$account_key = $this->account_key();
-			$response = $this->apiClient->get_stats( $account_key );
-			if( is_wp_error( $response ) ) {
-
-				echo 'Error Found ( '.$response->get_error_message().' )';
-				echo '<img class="placeholder" src="' . plugins_url( 'img/plugin-stats-placeholder-small.jpg', plugin_dir_path( __FILE__ ) ) . '"/>';
-			} else {
-
-				$body = wp_remote_retrieve_body( $response );
-				$output = json_decode( $body ); 
-				require_once( plugin_dir_path( __FILE__ ) . '../templates/widgets/push_monkey_stats_widget.php' );
-			}
+			$output = $this->apiClient->get_stats( $account_key );
+			require_once( plugin_dir_path( __FILE__ ) . '../templates/widgets/push_monkey_stats_widget.php' );
 		}
 		echo '<a href="' . admin_url( 'admin.php?page=push_monkey_main_config' ) . '">What is this?</a>';
 	}
@@ -278,7 +275,6 @@ class PushMonkey {
 			'centerRight' => 'banner-center-right'
 			 );
 		
-
 		$has_account_key = false;
 		$output = NULL;
 		$plan_name = NULL;
@@ -292,16 +288,7 @@ class PushMonkey {
 
 			$has_account_key = true;
 			$account_key = $this->account_key();
-			$response = $this->apiClient->get_stats( $account_key );
-			if( is_wp_error( $response ) ) {
-
-				$this->d->debug( $response->get_error_message() );
-			} else {
-
-				$body = wp_remote_retrieve_body( $response );
-				$output = json_decode( $body ); 
-				$this->d->debug( print_r( $output, true ) );
-			}
+			$output = $this->apiClient->get_stats( $account_key );
 			$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
 			$plan_name = isset( $plan_response->plan_name ) ? $plan_response->plan_name : NULL;
 			$plan_can_upgrade = isset( $plan_response->can_upgrade ) ? $plan_response->can_upgrade : false;
@@ -431,6 +418,7 @@ class PushMonkey {
 	function settings_screen_loaded() {
 
 		remove_action( 'admin_notices', array( $this, 'big_invalid_account_key_notice' ) );
+		remove_action( 'admin_notices', array( $this, 'big_expired_plan_notice' ) );
 	}
 
 	function post_published( $new_status, $old_status, $post ) {
@@ -740,5 +728,38 @@ class PushMonkey {
 	function included_post_types_saved_notice() {
 
 		echo '<div class="updated"><p>Included Post Types successfuly updated! *high five*</p></div>';	
+	}
+
+	function big_expired_plan_notice() {
+
+		if ( ! $this->signed_in() ) {
+
+			return;
+		}
+
+		$account_key = $this->account_key();
+		$plan_response = $this->apiClient->get_plan_name( $account_key );
+		$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;
+		if ( ! $plan_expired ) {
+			
+			return;
+		}
+		$stats = $this->apiClient->get_stats( $account_key );
+		if ( ! isset( $stats->subscribers ) ) {
+			return;
+		}
+
+		$subscribers = $stats->subscribers;
+		$upgrade_url = $this->apiClient->endpointURL . '/dashboard?upgrade_plan=1&source=plugin';
+		$image_url = plugins_url( 'img/plugin-big-expiration-notice.png', plugin_dir_path( __FILE__ ) );
+		$settings_url = admin_url( 'admin.php?page=push_monkey_main_config' );
+		require_once( plugin_dir_path( __FILE__ ) . '../templates/messages/push_monkey_big_expiration_notice.php' );
+	}
+
+	function can_show_expiration_notice() {
+
+		$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
+		$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;;
+		return $plan_expired;
 	}
 }

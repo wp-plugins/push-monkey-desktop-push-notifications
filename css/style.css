@@ -449,3 +449,58 @@ body.wp-admin #wpcontent div.push-monkey-unknown-client {
 .button-wrapper .push-monkey-btn {
 	margin: auto;
 }
+
+body.wp-admin #wpcontent div.push-monkey-expired-notice {
+	background:#E8E8E1 no-repeat;
+	background-position: 98% bottom ;
+	border:0;
+	color:#363636;
+	height:100px;
+	padding:0;
+}
+
+.push-monkey-expired-notice .button-wrapper {
+	float:left;
+	margin-top: 30px;
+	min-width: 190px;
+	width: 15%;
+}
+
+.push-monkey-expired-notice .text-wrapper {
+	color: #F64747;
+	float: left;
+	margin-top: 15px;
+	width: 70%;
+}
+
+.push-monkey-expired-notice .text-wrapper h4 {
+	font-size: 18px;
+    margin: 0;
+}
+
+.push-monkey-expired-notice .text-wrapper a {
+	color:#363636;
+}
+
+.push-monkey-expired-notice .text-wrapper a:hover {
+	color:#2FCC70;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in;
+    -o-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in;
+}
+
+.push-monkey-expired-notice .push-monkey-btn {
+	background:#F64747;
+}
+
+.push-monkey-expired-notice .push-monkey-btn:hover {
+	background:#df3b3b;
+	color:white;
+    -webkit-transition: background 0.1s ease-in;
+    -moz-transition: background 0.1s ease-in;
+    -ms-transition: background 0.1s ease-in;
+    -o-transition: background 0.1s ease-in;
+    transition: background 0.1s ease-in;
+}
