@@ -176,6 +176,8 @@ class PushMonkey {
 			add_action( 'admin_notices', array( $this, 'big_expired_plan_notice' ) );
 		}
 
+		add_action( 'admin_notices', array( $this, 'big_upsell_notice' ) );
+
 		add_action( 'wp_ajax_push_monkey_banner_position', array( $this->ajax, 'banner_position_changed' ) );
 	}
 
@@ -759,7 +761,32 @@ class PushMonkey {
 	function can_show_expiration_notice() {
 
 		$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
-		$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;;
+		$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;
 		return $plan_expired;
+	}
+
+	function big_upsell_notice() {
+
+		global $hook_suffix;	
+		if ( $hook_suffix == 'plugins.php' ) {
+
+			$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
+			$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;
+			$plan_can_upgrade = isset( $plan_response->can_upgrade ) ? $plan_response->can_upgrade : false;
+
+			$push_monkey_us_notice_cookie = isset( $_COOKIE['push_monkey_us_notice'] ) ? $_COOKIE['push_monkey_us_notice'] : false;
+
+			if ( $push_monkey_us_notice_cookie ) {
+				
+				return;		
+			}
+
+			if ( ! $plan_expired ) {
+
+				$image_url = plugins_url( 'img/plugin-big-message-image.png', plugin_dir_path( __FILE__ ) );
+				$close_url = plugins_url( 'img/banner-close-dark.png', plugin_dir_path( __FILE__ ) );
+				require_once( plugin_dir_path( __FILE__ ) . '../templates/messages/push_monkey_upsell_notice.php' );				
+			}
+		}
 	}
 }

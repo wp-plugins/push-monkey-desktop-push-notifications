@@ -380,6 +380,8 @@ form.settings {
    Messages 
    ========================================================================== */
 
+/* ==================================================== Unknown Client ========================== */
+
 body.wp-admin #wpcontent div.push-monkey-unknown-client {
 	background:#E8E8E1 no-repeat;
 	background-position: 98% bottom ;
@@ -450,6 +452,8 @@ body.wp-admin #wpcontent div.push-monkey-unknown-client {
 	margin: auto;
 }
 
+/* ==================================================== Expired Notice ========================== */
+
 body.wp-admin #wpcontent div.push-monkey-expired-notice {
 	background:#E8E8E1 no-repeat;
 	background-position: 98% bottom ;
@@ -503,4 +507,68 @@ body.wp-admin #wpcontent div.push-monkey-expired-notice {
     -ms-transition: background 0.1s ease-in;
     -o-transition: background 0.1s ease-in;
     transition: background 0.1s ease-in;
+}
+
+/* ==================================================== Expired Notice ========================== */
+
+body.wp-admin #wpcontent div.push-monkey-us-notice {
+	background:#E8E8E1 no-repeat;
+	background-position: 98% bottom ;
+	border:0;
+	color:#363636;
+	height:100px;
+	padding:0;
+	position: relative;
+}
+
+.push-monkey-us-notice .push-monkey-btn {
+	background:#2FCC70;
+}
+
+.push-monkey-us-notice .button-wrapper {
+	float:left;
+	margin-top: 30px;
+	min-width: 190px;
+	width: 15%;
+}
+
+.push-monkey-us-notice .text-wrapper {
+	float: left;
+	margin-top: 30px;
+	width: 70%;
+}
+
+.push-monkey-us-notice .text-wrapper h4 {
+	font-size: 18px;
+    margin: 0;
+}
+
+.push-monkey-us-notice .text-wrapper a {
+	color:#363636;
+}
+
+.push-monkey-us-notice .text-wrapper a:hover {
+	color:#2FCC70;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in;
+    -o-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in;
+}
+
+.push-monkey-us-notice .push-monkey-btn:hover {
+	background:#46dd88;
+	color:white;
+    -webkit-transition: background 0.1s ease-in;
+    -moz-transition: background 0.1s ease-in;
+    -ms-transition: background 0.1s ease-in;
+    -o-transition: background 0.1s ease-in;
+    transition: background 0.1s ease-in;
+}
+
+.push-monkey-us-notice .close-btn {
+	opacity: 0.3;
+	position:absolute;
+	right:5px;
+	top:5px;
 }

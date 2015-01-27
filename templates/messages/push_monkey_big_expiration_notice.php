@@ -9,7 +9,7 @@
 			not be sent to any of your <strong><?php echo $subscribers; ?> subscribers.</strong>. 
 		</p>
 		<p>
-			<strong>Good News: </strong>You can upgrade your account by <a href="<?php echo $upgrade_url; ?>" target="_blank">clicking here</a>. 
+			<strong>Good News: </strong>You can upgrade your account by <a href="<?php echo $upgradegrade_url; ?>" target="_blank">clicking here</a>. 
 			If you're still not sure, 
 			<a href="http://blog.getpushmonkey.com/2014/10/why-safari-desktop-push-notifications-matter/?source=big_expiration_notice">
 			this article might help &#8594;</a>.
