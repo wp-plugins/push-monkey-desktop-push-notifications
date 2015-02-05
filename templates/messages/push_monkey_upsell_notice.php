@@ -5,7 +5,7 @@
 	<div class="text-wrapper">
 		<h4>Continue using Push Monkey in the way that suits you best.</h4>
 		<p>
-		It's time to upgrade your Push Monkey plugin to the <strong>Sweet Spot</strong> plan or any of <a target="_blank"> href="<?php echo $price_plans; ?>">the other great price plans</a>.  
+		It's time to upgrade your Push Monkey plugin to the <strong>Sweet Spot</strong> plan or any of <a target="_blank" href="<?php echo $price_plans; ?>">the other great price plans</a>.  
 		<a href="http://blog.getpushmonkey.com/2014/12/readers-will-ready-desktop-push-notifications/?source=plugin-upsell" target="_blank">More info &#8594;</a>
 		</p>
 	</div>

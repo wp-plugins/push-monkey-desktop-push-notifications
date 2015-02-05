@@ -4,8 +4,8 @@
  * Plugin URI: https://wordpress.org/plugins/push-monkey-desktop-push-notifications/
  * Author: moWOW Studios
  * Description: Engage & delight your readers with Desktop Push Notifications - a new subscription channel directly to the desktop of your readers, without them installing any app. To start sending, just go to <a href="https://www.getpushmonkey.com?source=plugin_desc" target="_blank">getpushmonkey.com</a>, register and receive your Account Key. Currently Safari Push Notifications are active only under OSX Mavericks, Yosemite or newer (with Safari 7+). Firefox and Chrome soon to come.
- * Version: 0.9.9.8.5
- * Stable Tag: 0.9.9.8.5
+ * Version: 0.9.9.8.6
+ * Stable Tag: 0.9.9.8.6
  * Author URI: http://www.getpushmonkey.com/?source=plugin
  * License: GPL2
  */
@@ -30,6 +30,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /* CHANGELOG:
 
+ * v 0.9.9.8.6
+ * - bugfixing
+ *
  * v 0.9.9.8.5
  * - bugfixing
  *
