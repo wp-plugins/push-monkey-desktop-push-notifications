@@ -797,6 +797,8 @@ class PushMonkey {
 
 		if ( ! $plan_expired && $plan_can_upgrade ) {
 
+			$upgrade_url = $this->apiClient->endpointURL . '/dashboard?upgrade_plan=1&source=us-notice';
+			$price_plans = $this->apiClient->endpointURL . '/#plans';
 			$image_url = plugins_url( 'img/plugin-big-message-image.png', plugin_dir_path( __FILE__ ) );
 			$close_url = plugins_url( 'img/banner-close-dark.png', plugin_dir_path( __FILE__ ) );
 			require_once( plugin_dir_path( __FILE__ ) . '../templates/messages/push_monkey_upsell_notice.php' );				

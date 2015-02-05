@@ -1,5 +1,5 @@
 /*
- * Version: 0.9.9.8.4
+ * Version: 0.9.9.8.5
  */
 
 var PushMonkeyWPConfig = {};

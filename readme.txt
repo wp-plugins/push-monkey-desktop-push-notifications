@@ -5,7 +5,7 @@ Tags: push notifications, push messages, Safari, Apple, Mavericks, Mac, push, no
 
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 0.9.9.8.4
+Stable tag: 0.9.9.8.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,12 +94,14 @@ Automatic updates should work without any problems; If you do encounter any prob
 
 == Changelog ==
 
+= v 0.9.9.8.5 = 
+ * bugfixing
+
 = v 0.9.9.8.4 =
  * remove shortcodes from Push Notification
  * fix double escaping of Custom Push Notifications
  * add Welcome Notice
  * fix notification before trial expires
-
 
 = v 0.9.9.8.3 =
  * display notification before trial plan expires
