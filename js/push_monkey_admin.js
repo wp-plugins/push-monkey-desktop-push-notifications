@@ -51,6 +51,12 @@ jQuery(document).ready(function($) {
 		$('div.push-monkey-us-notice').fadeOut();
 		CookieManager.setCookie('push_monkey_us_notice', true, 8);
 	});
+
+	$('div.push-monkey-welcome-notice .close-btn a').click(function(){
+
+		$('div.push-monkey-welcome-notice').parents('div.push-monkey').fadeOut();
+		CookieManager.setCookie('push_monkey_welcome_notice', true, 60);
+	}); 
 });
 
 var CookieManager = {};

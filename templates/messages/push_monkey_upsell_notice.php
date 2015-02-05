@@ -1,4 +1,4 @@
-<div class="error clearfix push-monkey-us-notice" style="background-image:url('<?php echo $image_url; ?>')"> 
+<div class="error clearfix push-monkey-us-notice" style="background-image:url('<?php echo $image_url; ?>') !important;"> 
 	<div class="button-wrapper">
 		<a href="<?php echo $upgrade_url; ?>" target="_blank" class="push-monkey-btn">Upgrade Now</a>
 	</div>

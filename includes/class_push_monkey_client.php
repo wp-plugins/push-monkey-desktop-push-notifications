@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_debugger.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_cache.php' );
 
 /**
  * API Client
@@ -17,6 +18,8 @@ class PushMonkeyClient {
 	public $registerURL;
 
 	/* Public */
+
+	const PLAN_NAME_KEY = 'push_monkey_plan_name_output';
 
 	/**
  	* Calls the sign in endpoint with either an Account Key
@@ -29,6 +32,7 @@ class PushMonkeyClient {
 
 		$sign_in_url = $this->endpointURL . '/clients/api/sign_in';
 		$args = array( 'body' => array( 
+			
 			'account_key' => $account_key, 
 			'api_token' => $api_token, 
 			'api_secret' => $api_secret
@@ -60,7 +64,6 @@ class PushMonkeyClient {
 
 			$body = wp_remote_retrieve_body( $response );
 			$output = json_decode( $body ); 
-			$this->d->debug( print_r( $output, true ) );
 			return $output;
 		}
 		return false;
@@ -105,6 +108,13 @@ class PushMonkeyClient {
 
 	public function get_plan_name( $account_key ) {
 
+		$output = $this->cache->get( self::PLAN_NAME_KEY );
+		if ( $output ) {
+			
+			$this->d->debug('served from cache');
+			return (object) $output;
+		}
+
 		$url = $this->endpointURL . '/clients/api/get_plan_name';
 		$args = array( 'body' => array( 'account_key' => $account_key ) );
 
@@ -116,12 +126,15 @@ class PushMonkeyClient {
 		} 
 		$body = wp_remote_retrieve_body( $response );
 		$output = json_decode( $body ); 
+		$serialized_output = json_decode( $body, true );
 		if ( isset( $output->error ) ) {
 			
 			$this->d->debug('get_plan_name: ' . $output->error);
 			return $output->error;
 		} else {
 
+			$this->d->debug("not from cache");
+			$this->cache->store( self::PLAN_NAME_KEY, $serialized_output );
 			return $output;
 		}
 		return '';
@@ -134,5 +147,6 @@ class PushMonkeyClient {
 		$this->endpointURL = $endpoint_url;
 		$this->registerURL = $endpoint_url.'/register';
 		$this->d = new PushMonkeyDebugger();
+		$this->cache = new PushMonkeyCache();
 	}
 }

@@ -509,11 +509,10 @@ body.wp-admin #wpcontent div.push-monkey-expired-notice {
     transition: background 0.1s ease-in;
 }
 
-/* ==================================================== Expired Notice ========================== */
+/* ==================================================== Upsell Notice ========================== */
 
 body.wp-admin #wpcontent div.push-monkey-us-notice {
-	background:#E8E8E1 no-repeat;
-	background-position: 98% bottom ;
+	background:none no-repeat scroll 98% bottom #E8E8E1 !important;
 	border:0;
 	color:#363636;
 	height:100px;
@@ -571,4 +570,36 @@ body.wp-admin #wpcontent div.push-monkey-us-notice {
 	position:absolute;
 	right:5px;
 	top:5px;
+}
+
+/* ==================================================== Welcome Notice ========================== */
+
+body.wp-admin #wpcontent div.push-monkey-welcome-notice {
+	background:none no-repeat scroll 50px 0px white;
+	border:0;
+	border-radius: 10px;
+	color:#363636;
+	padding:5px;
+	position: relative;
+}
+
+.push-monkey-welcome-notice .close-btn {
+	opacity: 0.3;
+	position:absolute;
+	right:10px;
+	top:5px;
+}
+
+.push-monkey-welcome-notice a {
+	color:#2FCC70;
+	text-decoration: underline;
+}
+
+.push-monkey-welcome-notice a:hover {
+	color:#363636;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in;
+    -o-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in;
 }

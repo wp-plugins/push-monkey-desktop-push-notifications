@@ -5,7 +5,7 @@ Tags: push notifications, push messages, Safari, Apple, Mavericks, Mac, push, no
 
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 0.9.9.8.3
+Stable tag: 0.9.9.8.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -50,10 +50,9 @@ Even if your readers visit your website using a different browser than Safari, t
 = Non-intrusive =
 
 Push notifications reach a sweet balance between informative and non-intrusive. They appear above all other windows and if not clicked on, disappear after a few seconds.
-
-= Easy-to-integrate =
-
-Fast and easy install and set up, hardly anything to configure. The monkeys do all the pushing so you can focus on your content and readers.   
+  
+= Super fast setup. Zero coding required =
+Fast and easy to set up and no coding or API configuration required. The monkeys do all the pushing so you can focus on your content and readers.
 
 = No Monkey Business =
 
@@ -95,8 +94,15 @@ Automatic updates should work without any problems; If you do encounter any prob
 
 == Changelog ==
 
+= v 0.9.9.8.4 =
+ * remove shortcodes from Push Notification
+ * fix double escaping of Custom Push Notifications
+ * add Welcome Notice
+ * fix notification before trial expires
+
+
 = v 0.9.9.8.3 =
- * display notification when before trial plan expires
+ * display notification before trial plan expires
 
 = v 0.9.9.8.2 =
  * display notification when the trial plan expired

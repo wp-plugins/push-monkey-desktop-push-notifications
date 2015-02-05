@@ -92,6 +92,7 @@ class PushMonkey {
 		delete_option( self::ACCOUNT_KEY_KEY );
 		delete_option( self::EMAIL_KEY );
 		delete_option( self::WEBSITE_PUSH_ID_KEY );
+		delete_option( PushMonkeyClient::PLAN_NAME_KEY );
 	}
 
 	public function get_email_text() {
@@ -286,7 +287,7 @@ class PushMonkey {
 		$img_notifs_src = plugins_url( 'img/plugin-feature-image-notifications.png', plugin_dir_path( __FILE__ ) );
 		$img_stats_src = plugins_url( 'img/plugin-feature-image-stats.png', plugin_dir_path( __FILE__ ) );
 		$img_filter_src = plugins_url( 'img/plugin-feature-image-filter.png', plugin_dir_path( __FILE__ ) );
-		if ( $this->has_account_key() ) {
+		if ( $this->signed_in() ) {
 
 			$has_account_key = true;
 			$account_key = $this->account_key();
@@ -421,6 +422,7 @@ class PushMonkey {
 
 		remove_action( 'admin_notices', array( $this, 'big_invalid_account_key_notice' ) );
 		remove_action( 'admin_notices', array( $this, 'big_expired_plan_notice' ) );
+		add_action( 'admin_notices', array( $this, 'big_welcome_notice' ) );
 	}
 
 	function post_published( $new_status, $old_status, $post ) {
@@ -458,7 +460,7 @@ class PushMonkey {
 		if( $can_send_push ) {
 
 			$title = $post->post_title;
-			$body = strip_tags($post->post_content);
+			$body = strip_tags(strip_shortcodes($post->post_content));
 			$post_id = $post->ID;
 			$this->send_push_notification( $title, $body, $post_id, false );
 		}
@@ -707,11 +709,11 @@ class PushMonkey {
 
 	function process_push( $post ) {
 
-		$title = $post['title'];
-		$body = $post['message'];
+		$title = stripcslashes( $post['title'] );
+		$body = stripcslashes( $post['message'] );
 		$url_args = $post['url'];
 		$this->send_push_notification( $title, $body, $url_args, true );
-		wp_redirect( admin_url('?posted=1') ); 
+		wp_redirect( admin_url( '?posted=1' ) ); 
 		exit();
 	}
 
@@ -760,6 +762,10 @@ class PushMonkey {
 
 	function can_show_expiration_notice() {
 
+		if ( ! $this->signed_in() ) {
+			
+			return;
+		}
 		$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
 		$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;
 		return $plan_expired;
@@ -768,25 +774,51 @@ class PushMonkey {
 	function big_upsell_notice() {
 
 		global $hook_suffix;	
-		if ( $hook_suffix == 'plugins.php' ) {
+		if ( $hook_suffix != 'plugins.php' ) {
 
-			$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
-			$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;
-			$plan_can_upgrade = isset( $plan_response->can_upgrade ) ? $plan_response->can_upgrade : false;
-
-			$push_monkey_us_notice_cookie = isset( $_COOKIE['push_monkey_us_notice'] ) ? $_COOKIE['push_monkey_us_notice'] : false;
-
-			if ( $push_monkey_us_notice_cookie ) {
-				
-				return;		
-			}
-
-			if ( ! $plan_expired ) {
-
-				$image_url = plugins_url( 'img/plugin-big-message-image.png', plugin_dir_path( __FILE__ ) );
-				$close_url = plugins_url( 'img/banner-close-dark.png', plugin_dir_path( __FILE__ ) );
-				require_once( plugin_dir_path( __FILE__ ) . '../templates/messages/push_monkey_upsell_notice.php' );				
-			}
+			return;
 		}
+
+		if ( ! $this->signed_in() ) {
+			
+			return;
+		}
+
+		$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
+		$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;
+		$plan_can_upgrade = isset( $plan_response->can_upgrade ) ? $plan_response->can_upgrade : false;
+
+		$push_monkey_us_notice_cookie = isset( $_COOKIE['push_monkey_us_notice'] ) ? $_COOKIE['push_monkey_us_notice'] : false;
+
+		if ( $push_monkey_us_notice_cookie ) {
+			
+			return;		
+		}
+
+		if ( ! $plan_expired && $plan_can_upgrade ) {
+
+			$image_url = plugins_url( 'img/plugin-big-message-image.png', plugin_dir_path( __FILE__ ) );
+			$close_url = plugins_url( 'img/banner-close-dark.png', plugin_dir_path( __FILE__ ) );
+			require_once( plugin_dir_path( __FILE__ ) . '../templates/messages/push_monkey_upsell_notice.php' );				
+		}
+	}
+
+	function big_welcome_notice() {
+
+		$push_monkey_welcome_notice_cookie = isset( $_COOKIE['push_monkey_welcome_notice'] ) ? $_COOKIE['push_monkey_welcome_notice'] : false;
+
+		if ( ! $this->signed_in() ) {
+			
+			return;
+		}
+
+		if ( $push_monkey_welcome_notice_cookie ) {
+			
+			return;
+		}
+
+		$image_url = plugins_url( 'img/logo-party.png', plugin_dir_path( __FILE__ ) );
+		$close_url = plugins_url( 'img/banner-close-dark.png', plugin_dir_path( __FILE__ ) );
+		require_once( plugin_dir_path( __FILE__ ) . '../templates/messages/push_monkey_welcome_notice.php' );
 	}
 }
