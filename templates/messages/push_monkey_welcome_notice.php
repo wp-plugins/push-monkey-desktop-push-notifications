@@ -15,13 +15,8 @@
 					<h4>Getting Started</h4>
 					<ul>
 						<li>
-							<a href="https://blog.getpushmonkey.com/rolling-push-notifications-audience/?source=welcome_notice">
+							<a href="http://blog.getpushmonkey.com/rolling-push-notifications-audience/?source=welcome_notice">
 								Rolling out Push Notifications to your Audience
-							</a>
-						</li>
-						<li>
-							<a href="http://blog.getpushmonkey.com/2014/10/doctor-whats-best-way-push/?source=welcome_notice">
-								Some tips about sending Safari Push Notifications
 							</a>
 						</li>
 						<li>
@@ -45,7 +40,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="https://blog.getpushmonkey.com/2014/10/doctor-whats-best-way-push/?source=welcome_notice">
+							<a href="http://blog.getpushmonkey.com/2014/10/doctor-whats-best-way-push/?source=welcome_notice">
 								Best practices
 							</a>
 						</li>

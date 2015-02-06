@@ -339,7 +339,7 @@ form.settings {
 
 .push-monkey .banner-demo .banner-top-right {
 	height: 15px;
-	left: right;
+	right: 0;
 	top:0;
 	width: 20%;
 }
