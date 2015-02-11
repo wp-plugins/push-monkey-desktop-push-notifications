@@ -5,7 +5,7 @@ Tags: push notifications, push messages, Safari, Apple, Mavericks, Mac, push, no
 
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 0.9.9.8.7
+Stable tag: 0.9.9.8.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,6 +93,10 @@ Automatic updates should work without any problems; If you do encounter any prob
 5. Informational banner seen by Mac readers who come to your website from other browsers than Safari
 
 == Changelog ==
+
+= v 0.9.9.8.8 =
+ * caching update
+ * update Sign Up screen
 
 = v 0.9.9.8.7 =
  * bugfixing

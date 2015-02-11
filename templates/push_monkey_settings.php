@@ -42,7 +42,7 @@
 						</div><!-- .col -->
 					</div><!-- .item -->
 					<div class="item <?php if( $sign_up ) { echo 'active'; } ?>">
-						<div class="col-md-4 col-md-offset-3">
+						<div class="col-md-4 col-md-offset-2">
 							<div class="login-box">
 								<form method="GET" action="<?php echo $register_url; ?>">
 									<div class="row text-center">
@@ -65,6 +65,12 @@
 								</form>
 							</div><!-- .login-box -->
 						</div><!-- .col -->	
+						<div class="col-md-3">
+								<br /><br /><br /><br />
+								<br />
+								<br />
+								<img src="<?php echo $img_free_trial_src; ?>"/>
+						</div><!-- .col -->
 					</div><!-- .item -->
 				</div><!-- .carousel-inner -->
 			</div><!-- .carousel -->

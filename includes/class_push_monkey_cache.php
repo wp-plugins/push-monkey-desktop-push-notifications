@@ -18,7 +18,7 @@ class PushMonkeyCache {
 
 	const DATE_FORMAT = 'Y-m-d H:i:s';
 
-	public function store( $key, $value, $minutes = 15 ) {
+	public function store( $key, $value, $minutes = 30 ) {
 
 		$store = array();
 		$now = new DateTime();

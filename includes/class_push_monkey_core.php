@@ -62,6 +62,7 @@ class PushMonkey {
 
 	public function sign_in( $account_key, $api_token, $api_secret ) {
 
+		delete_option( PushMonkeyClient::PLAN_NAME_KEY );
 		$response = $this->apiClient->sign_in( $account_key, $api_token, $api_secret );
 		if ( isset( $response->signed_in ) ) {
 			
@@ -287,6 +288,7 @@ class PushMonkey {
 		$img_notifs_src = plugins_url( 'img/plugin-feature-image-notifications.png', plugin_dir_path( __FILE__ ) );
 		$img_stats_src = plugins_url( 'img/plugin-feature-image-stats.png', plugin_dir_path( __FILE__ ) );
 		$img_filter_src = plugins_url( 'img/plugin-feature-image-filter.png', plugin_dir_path( __FILE__ ) );
+		$img_free_trial_src = plugins_url( 'img/push-monkey-plugin-free-trial.png', plugin_dir_path( __FILE__ ) );
 		if ( $this->signed_in() ) {
 
 			$has_account_key = true;
