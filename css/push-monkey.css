@@ -1,0 +1,98 @@
+.push-monkey-theme {
+    border: 0;
+    box-shadow: none;
+    overflow: hidden;
+    position: relative;
+}
+
+#noty_bottom_layout_container .push-monkey-theme,
+#noty_top_layout_container .push-monkey-theme {
+    height:34px;
+}
+
+.push-monkey-theme.noty_container_type_alert {
+    background-color: #f5f5f5;
+}
+
+.push-monkey-theme.noty_container_type_information {
+    background-color: #bbe1e8;
+}
+
+.push-monkey-theme.noty_container_type_error {
+    background-color: #eaadad;
+    color: #fff;
+    font-weight: bold
+}
+
+.push-monkey-theme.noty_container_type_warning {
+    background-color: #fbb450;
+    color: #fff;
+}
+
+.push-monkey-theme.noty_container_type_success {
+    background-color: #2FCC70;
+    color: #fff;
+}
+
+.push-monkey-theme .noty_message {
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    padding: 0 30px;
+}
+
+.push-monkey-theme .noty_message img {
+    height: 34px;
+    margin-right: 30px;
+    vertical-align: middle;
+    width: 65px;
+}
+
+#noty_topRight_layout_container .push-monkey-theme .noty_message img,
+#noty_topLeft_layout_container .push-monkey-theme .noty_message img,
+#noty_bottomLeft_layout_container .push-monkey-theme .noty_message img,
+#noty_bottomRight_layout_container .push-monkey-theme .noty_message img,
+#noty_centerRight_layout_container .push-monkey-theme .noty_message img,
+#noty_centerLeft_layout_container .push-monkey-theme .noty_message img {
+    float: left;
+    height: 70px;
+    margin-right: 20px;
+    width: 65px;
+}
+
+#noty_topRight_layout_container .push-monkey-theme .noty_message,
+#noty_topLeft_layout_container .push-monkey-theme .noty_message,
+#noty_bottomLeft_layout_container .push-monkey-theme .noty_message,
+#noty_bottomRight_layout_container .push-monkey-theme .noty_message,
+#noty_centerRight_layout_container .push-monkey-theme .noty_message,
+#noty_centerLeft_layout_container .push-monkey-theme .noty_message {
+    padding:10px 20px;
+}
+
+.push-monkey-theme .noty_close {
+    background: url("../img/banner-close.png") no-repeat;
+    cursor: pointer;
+    height: 16px;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    visibility: hidden;
+    width: 16px;
+}
+
+.push-monkey-theme:hover > .noty_bar > .noty_message > .noty_close {
+    visibility: visible;
+}
+
+.noty_modal.push-monkey-theme {
+    background-color: #000;
+    border: none;
+    display: none;
+    height: 100%;
+    left: 0;
+    opacity: 0.6;
+    position: fixed;
+    top: 0
+    width: 100%;
+    z-index: 10000;
+}
