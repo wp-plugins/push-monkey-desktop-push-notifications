@@ -376,6 +376,20 @@ form.settings {
 	height:0;
 }
 
+#picker_container {
+	position:relative;
+}
+
+.push-monkey .dropdown-menu.colorpicker {
+    border-radius: 4px;
+    left: 0;
+    margin-top: 1px;
+    min-width: 130px;
+    padding: 4px;
+    top: 0;
+    z-index: 2500;
+}
+
 /* ==========================================================================
    Messages 
    ========================================================================== */

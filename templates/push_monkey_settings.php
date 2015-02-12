@@ -189,10 +189,15 @@
 			</div><!-- .row -->
 		</form>
 
-		<h3 class="section-margin-top">Post types that send Desktop Push Notifications</h3>
-		<p class="description">
-			By default, all post types send Desktop Push Notifications.
-		</p>
+		<div class="row">
+			<div class="col-md-8">
+				<h3 class="section-margin-top">Post types that send Desktop Push Notifications</h3>
+				<p class="description">
+					By default, all post types send Desktop Push Notifications.
+				</p>
+			</div><!-- .col -->
+		</div><!-- .row -->
+
 		<form method="post" id="post-types">
 			<div class="row">
 				<div class="col-md-8">
@@ -234,6 +239,7 @@
 				</p>
 			</div><!-- .col -->
 		</div><!-- .row -->
+
 		<form method="post" id="post-categories">
 			<div class="row">
 				<div class="col-md-8">
@@ -273,38 +279,63 @@
 					<a href="http://www.getpushmonkey.com/help?source=plugin#q15" target="_blank">More info about this &#8594;</a>
 				</p>				
 			</div><!-- .col -->
-			<div class="col-md-8">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Position</label>
-						<div class="col-sm-3">
-							<select class="form-control select-picker" data-style="btn-success">
-								<option value="top" <?php if ( $banner_position == 'top' ) { echo 'selected="selected"'; } ?>>Top </option>
-								<option value="topLeft" <?php if ( $banner_position == 'topLeft' ) { echo 'selected="selected"'; } ?>>Top Left</option>
-								<option value="centerRight" <?php if ( $banner_position == 'centerRight' ) { echo 'selected="selected"'; } ?>>Center Right</option>
-								<option value="centerLeft" <?php if ( $banner_position == 'centerLeft' ) { echo 'selected="selected"'; } ?>>Center Left</option>
-								<option value="topRight" <?php if ( $banner_position == 'topRight' ) { echo 'selected="selected"'; } ?>>Top Right</option>
-								<option value="bottom" <?php if ( $banner_position == 'bottom' ) { echo 'selected="selected"'; } ?>>Bottom</option>
-								<option value="bottomLeft" <?php if ( $banner_position == 'bottomLeft' ) { echo 'selected="selected"'; } ?>>Bottom Left</option>
-								<option value="bottomRight" <?php if ( $banner_position == 'bottomRight' ) { echo 'selected="selected"'; } ?>>Bottom Right</option>
-								<option value="disabled" <?php if ( $banner_position == 'disabled' ) { echo 'selected="selected"'; } ?>>Disabled</option>
-							</select>
-						</div>
-						<div class="col-sm-2">
-							<div class="banner-demo text-center">
-								<div class="banner <?php echo $banner_position_classes[$banner_position]; ?> text-center"></div>
-								<span>Preview</span>
-							</div>
-						</div><!-- .col -->
-						<div class="col-sm-2" id="position-save-cue">
-							<p class="bg-success">
-							<span class="glyphicon glyphicon-ok"></span> Saved
-							</p>
-						</div><!-- .col -->
-					</div>
-				</form>
-			</div><!-- .col -->
 		</div><!-- .row -->
+
+		<form class="form-horizontal" method="post">	
+			<div class="row form-group">
+				<label class="col-md-2 control-label">Position</label>
+				<div class="col-md-4">
+					<select class="form-control select-picker" data-style="btn-success">
+						<option value="top" <?php if ( $banner_position == 'top' ) { echo 'selected="selected"'; } ?>>Top </option>
+						<option value="topLeft" <?php if ( $banner_position == 'topLeft' ) { echo 'selected="selected"'; } ?>>Top Left</option>
+						<option value="centerRight" <?php if ( $banner_position == 'centerRight' ) { echo 'selected="selected"'; } ?>>Center Right</option>
+						<option value="centerLeft" <?php if ( $banner_position == 'centerLeft' ) { echo 'selected="selected"'; } ?>>Center Left</option>
+						<option value="topRight" <?php if ( $banner_position == 'topRight' ) { echo 'selected="selected"'; } ?>>Top Right</option>
+						<option value="bottom" <?php if ( $banner_position == 'bottom' ) { echo 'selected="selected"'; } ?>>Bottom</option>
+						<option value="bottomLeft" <?php if ( $banner_position == 'bottomLeft' ) { echo 'selected="selected"'; } ?>>Bottom Left</option>
+						<option value="bottomRight" <?php if ( $banner_position == 'bottomRight' ) { echo 'selected="selected"'; } ?>>Bottom Right</option>
+						<option value="disabled" <?php if ( $banner_position == 'disabled' ) { echo 'selected="selected"'; } ?>>Disabled</option>
+					</select>
+				</div>
+				<div class="col-sm-1">
+					<div class="banner-demo text-center">
+						<div class="banner <?php echo $banner_position_classes[$banner_position]; ?> text-center"></div>
+						<span>Preview</span>
+					</div>
+				</div><!-- .col -->
+				<div class="col-sm-2" id="position-save-cue">
+					<p class="bg-success">
+					<span class="glyphicon glyphicon-ok"></span> Saved
+					</p>
+				</div><!-- .col -->
+			</div><!-- .row -->
+			<div class="row form-group">
+				<label class="col-md-2 control-label">Banner Text</label>
+				<div class="col-md-4">
+					<input type="text" class="form-control" name="push_monkey_banner_text" value="<?php echo $banner_text; ?>"/>
+					<span class="help-block">
+					This will the text displayed inside the banner. Key words: <br />
+					<em>{% site_name %}</em> - to display the site name <br />
+					<em>{% separator %}</em> - for a special separator.
+					</span>
+				</div>
+			</div><!-- .row -->
+			<div class="row form-group" id="picker_container">
+				<label class="col-md-2 control-label">Banner Background Color</label>
+				<div class="col-md-4">
+					<div class="input-group banner-color-input">
+						<input type="text" value="<?php echo $banner_color; ?>" class="form-control" name="push_monkey_banner_color" />
+						<span class="input-group-addon"><i></i></span>
+					</div>
+					<span class="help-block">Default value is #2fcc70.</span>
+				</div>
+			</div><!-- .row -->
+			<div class="row form-group">
+				<div class="col-md-3">
+					<input type="submit" name="push_monkey_banner" value="Update" class="btn btn-success" />					
+				</div><!-- .col -->				
+			</div><!-- .row -->
+		</form>
 	</div><!-- .container-fluid -->
 </div><!-- .push-monkey -->
 

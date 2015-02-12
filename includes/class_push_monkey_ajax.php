@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_debugger.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_banner.php' );
+require_once( plugin_dir_path( __FILE__ ) . '../models/class_push_monkey_banner.php' );
 
 class PushMonkeyAjax {
 

@@ -1,5 +1,5 @@
 /*
- * Version: 0.9.9.8.8
+ * Version: 0.9.9.8.9
  */
 
 var PushMonkeyWPConfig = {};
@@ -121,14 +121,16 @@ jQuery(document).ready(function($) {
 			return;
 		};
 
+		var text = '';
 		if (push_monkey_locals.banner_position == 'top' || push_monkey_locals.banner_position == 'bottom') {
 
-			var text = "<img src='" + push_monkey_locals.banner_icon_url + "' />Stay up to date with <strong>" + 
-			push_monkey_locals.website_name + "</strong> &#8212; open this website in Safari to sign up for Desktop Push Notifications";
+			// var text = "<img src='" + push_monkey_locals.banner_icon_url + "' />Stay up to date with <strong>" + 
+			// push_monkey_locals.website_name + "</strong> &#8212; Open this website in Safari to sign up for Desktop Push Notifications";
+			text = "<img src='" + push_monkey_locals.banner_icon_url + "' />" + push_monkey_locals.banner_text;
 		} else {
 
-			var text = "<img src='" + push_monkey_locals.banner_icon_url_v2 + "' />Stay up to date with <strong>" + 
-			push_monkey_locals.website_name + "</strong><br /><br />Open this website in Safari to sign up for Desktop Push Notifications";
+			text = "<img src='" + push_monkey_locals.banner_icon_url_v2 + "' />" + push_monkey_locals.banner_text;
+			// push_monkey_locals.website_name + "</strong><br /><br /> Open this website in Safari to sign up for Desktop Push Notifications";
 		}
 
 		var openAnimation = 'animated fadeInDown';
@@ -158,6 +160,10 @@ jQuery(document).ready(function($) {
             },
             callback 	: {
 
+            	onShow: function() {
+
+            		$('.noty_container_type_success').css({'background-color':push_monkey_locals.banner_color});
+            	},
             	onClose:   function() {
 
             		var counter_cookie = PushMonkeyWP.getCookie('push_monkey_banner_counter');

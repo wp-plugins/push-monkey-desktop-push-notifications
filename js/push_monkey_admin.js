@@ -43,7 +43,6 @@ jQuery(document).ready(function($) {
 	$("#post-types input[value='post']").on('switchChange.bootstrapSwitch', function() {
 
 		$('#post-categories input[type=checkbox]').bootstrapSwitch('toggleDisabled');
-			
 	});
 
 	$('div.push-monkey-us-notice .close-btn a').click(function() {
@@ -57,6 +56,11 @@ jQuery(document).ready(function($) {
 		$('div.push-monkey-welcome-notice').parents('div.push-monkey').fadeOut();
 		CookieManager.setCookie('push_monkey_welcome_notice', true, 60);
 	}); 
+
+	$("div.banner-color-input").colorpicker({
+		container: $('#picker_container'),
+	});
+	console.log('yeah');
 });
 
 var CookieManager = {};
