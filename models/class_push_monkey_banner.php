@@ -70,7 +70,7 @@ class PushMonkeyBanner {
 		if ( ! $val ) {
 
 			$val = 'top';
-			$this->banner->save_position( $val );
+			$this->save_position( $val );
 		}
 		return $val;
 	}
@@ -80,6 +80,7 @@ class PushMonkeyBanner {
 		delete_option( self::BANNER_TEXT_KEY );
 		delete_option( self::BANNER_COLOR_KEY );
 		delete_option( self::DEFAULT_TEXT );
+		delete_option( self::DEFAULT_COLOR );
 		delete_option( self::BANNER_POSITION_KEY );
 	}
 
