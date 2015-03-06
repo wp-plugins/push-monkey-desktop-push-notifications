@@ -4,8 +4,8 @@
  * Plugin URI: https://wordpress.org/plugins/push-monkey-desktop-push-notifications/
  * Author: moWOW Studios
  * Description: Engage & delight your readers with Desktop Push Notifications - a new subscription channel directly to the desktop of your readers, without them installing any app. To start sending, just go to <a href="https://www.getpushmonkey.com?source=plugin_desc" target="_blank">getpushmonkey.com</a>, and register. Currently Safari Push Notifications are active only under OSX Mavericks, Yosemite or newer (with Safari 7+). Firefox and Chrome soon to come.
- * Version: 0.9.9.9.1
- * Stable Tag: 0.9.9.9.1
+ * Version: 0.9.9.9.2
+ * Stable Tag: 0.9.9.9.2
  * Author URI: http://www.getpushmonkey.com/?source=plugin
  * License: GPL2
  */
@@ -29,6 +29,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 /* CHANGELOG:
+ *
+ * v 0.9.9.9.2
+ * - add option to disable CTA banners on homepage only, while being enabled on all other pages
  *
  * v 0.9.9.9.1
  * - fix PHP 5.2 compatibility
@@ -168,6 +171,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class_push_monkey_core.php' );
 
+/**
+ * Main function that creates and 
+ * runs Push Monkey.
+ */
 function run_push_monkey() {
 
 	$push_monkey = new PushMonkey();

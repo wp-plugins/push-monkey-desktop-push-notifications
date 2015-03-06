@@ -27,7 +27,11 @@ class PushMonkeyClient {
 	*
 	* Returns false on WP errors.
 	* Returns an object with the returned JSON.
- 	*/
+	* @param string $account_key
+	* @param string $api_token
+	* @param string $api_secret
+	* @return mixed; false if not signed in. 
+	*/
 	public function sign_in( $account_key, $api_token, $api_secret ) {
 
 		$sign_in_url = $this->endpointURL . '/clients/api/sign_in';
@@ -51,6 +55,11 @@ class PushMonkeyClient {
 		return false;
 	}
 	
+	/**
+	 * Get the stats for an Account Key.
+	 * @param string $account_key 
+	 * @return mixed; false if nothing found; array otherwise.
+	 */
 	public function get_stats( $account_key ) {
 
 		$stats_api_url = $this->endpointURL . '/stats/api';
@@ -69,6 +78,11 @@ class PushMonkeyClient {
 		return false;
 	}
 
+	/**
+	 * Get the Website Push ID for an Account Key.
+	 * @param string $account_key 
+	 * @return string; array with error info if an error occured.
+	 */
 	public function get_website_push_ID( $account_key ) {
 
 		$url = $this->endpointURL . '/clients/get_website_push_id';
@@ -85,6 +99,14 @@ class PushMonkeyClient {
 		return $output;
 	}
 
+	/**
+	 * Sends a desktop push notification.
+	 * @param string $account_key 
+	 * @param string $title 
+	 * @param string $body 
+	 * @param string $url_args 
+	 * @param boolean $custom 
+	 */
 	public function send_push_notification( $account_key, $title, $body, $url_args, $custom ) {
 
 		$url = $this->endpointURL . '/push_message';
@@ -106,6 +128,11 @@ class PushMonkeyClient {
 		}
 	}
 
+	/**
+	 * Get the plan name.
+	 * @param string $account_key 
+	 * @return string; array with error info otherwise.
+	 */
 	public function get_plan_name( $account_key ) {
 
 		$output = $this->cache->get( self::PLAN_NAME_KEY );

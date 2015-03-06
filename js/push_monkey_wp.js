@@ -1,5 +1,5 @@
 /*
- * Version: 0.9.9.9.1
+ * Version: 0.9.9.9.2
  */
 
 var PushMonkeyWPConfig = {};
@@ -110,6 +110,11 @@ jQuery(document).ready(function($) {
 			return;
 		};
 
+		if ( window.location.href == push_monkey_locals.home_url && push_monkey_locals.disabled_on_home ) {
+
+			return;
+		}
+
 		var pgwBrowser = $.pgwBrowser();
 		if (pgwBrowser.os.group != 'Mac OS') {
 
@@ -124,13 +129,10 @@ jQuery(document).ready(function($) {
 		var text = '';
 		if (push_monkey_locals.banner_position == 'top' || push_monkey_locals.banner_position == 'bottom') {
 
-			// var text = "<img src='" + push_monkey_locals.banner_icon_url + "' />Stay up to date with <strong>" + 
-			// push_monkey_locals.website_name + "</strong> &#8212; Open this website in Safari to sign up for Desktop Push Notifications";
 			text = "<img src='" + push_monkey_locals.banner_icon_url + "' />" + push_monkey_locals.banner_text;
 		} else {
 
 			text = "<img src='" + push_monkey_locals.banner_icon_url_v2 + "' />" + push_monkey_locals.banner_text;
-			// push_monkey_locals.website_name + "</strong><br /><br /> Open this website in Safari to sign up for Desktop Push Notifications";
 		}
 
 		var openAnimation = 'animated fadeInDown';

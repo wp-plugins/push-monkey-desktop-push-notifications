@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once( plugin_dir_path( __FILE__ ) . '../includes/class_push_monkey_debugger.php' );
 
 /**
- * Cache Manager that uses WordPress get_option and update_option.
+ * Banner model to set and get properties related to the CTA Banner.
  */
 class PushMonkeyBanner {
 
@@ -20,6 +20,7 @@ class PushMonkeyBanner {
 	const DEFAULT_TEXT = 'Stay up to date with {% site_name %}{% separator %} Open this website in Safari to sign up for Desktop Push Notifications';
 	const DEFAULT_COLOR = '#2FCC70';
 	const BANNER_POSITION_KEY = 'push_monkey_banner_position_key';
+	const BANNER_DISABLED_ON_HOME = 'push_monkey_banner_disabled_home';
 
 	public function set_raw_text( $text ) {
 
@@ -75,6 +76,22 @@ class PushMonkeyBanner {
 		return $val;
 	}
 
+	public function set_disabled_on_home( $val ) {
+
+		update_option( self::BANNER_DISABLED_ON_HOME, $val);
+	}
+
+	public function get_disabled_on_home() {
+
+		$val = get_option( self::BANNER_DISABLED_ON_HOME );
+		if ( ! $val ) {
+			
+			$val = false;
+			$this->set_disabled_on_home( $val );
+		}
+		return $val;
+	}
+
 	public function uninstall() {
 
 		delete_option( self::BANNER_TEXT_KEY );
@@ -82,6 +99,7 @@ class PushMonkeyBanner {
 		delete_option( self::DEFAULT_TEXT );
 		delete_option( self::DEFAULT_COLOR );
 		delete_option( self::BANNER_POSITION_KEY );
+		delete_option( self::BANNER_DISABLED_ON_HOME );
 	}
 
 	/* Private */

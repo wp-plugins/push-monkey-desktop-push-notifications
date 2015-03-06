@@ -43,6 +43,12 @@ class PushMonkeyCache {
 
 	const DATE_FORMAT = 'Y-m-d H:i:s';
 
+	/**
+	 * Store a certain value into a key, for a given amount of minutes.
+	 * @param string $key 
+	 * @param mixed $value 
+	 * @param integer $minutes 
+	 */
 	public function store( $key, $value, $minutes = 30 ) {
 
 		$store = array();
@@ -57,6 +63,12 @@ class PushMonkeyCache {
 		$this->d->debug('store for key: ' . $key);
 	}
 
+	/**
+	 * Get a value from cache, if available.
+	 * @param string $key 
+	 * @return mixed; returns false if cache is expired or nothing has been cached. Otherwise, 
+	 * it returns the cached value.
+	 */
 	public function get( $key ) {
 
 		$store = get_option( $key, false );

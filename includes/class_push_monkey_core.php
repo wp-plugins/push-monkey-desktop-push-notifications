@@ -13,7 +13,8 @@ require_once( plugin_dir_path( __FILE__ ) . '../models/class_push_monkey_banner.
 
 
 /**
- * PushMonkey
+ * Main class that connects the WordPress API
+ * with the Push Monkey API
  */
 class PushMonkey { 
 
@@ -22,11 +23,18 @@ class PushMonkey {
 	public $endpointURL;
 	public $apiClient;
 
+	/**
+	 * Hooks up with the required WordPress actions.
+	 */
 	public function run() {
 
 		$this->add_actions();
 	}
 
+	/**
+	 * Checks if an Account Key is stored.
+	 * @return boolean
+	 */
 	public function has_account_key() {
 
 		if( $this->account_key() ) {
@@ -36,6 +44,10 @@ class PushMonkey {
 		return false;
 	}
 
+	/**
+	 * Returns the stored Account Key.
+	 * @return string - the Account Key
+	 */
 	public function account_key() {
 
 		$account_key = get_option( self::ACCOUNT_KEY_KEY, '' );
@@ -46,6 +58,11 @@ class PushMonkey {
 		return $account_key;
 	}
 
+	/**
+	 * Checks if an Account Key is valid.
+	 * @param string $account_key - the Account Key checked.
+	 * @return boolean
+	 */
 	public function account_key_is_valid( $account_key ) {
 
 		if( ! strlen( $account_key ) ) {
@@ -55,11 +72,22 @@ class PushMonkey {
 		return true;
 	}
 
+	/**
+	 * Checks if a user is signed in.
+	 * @return boolean
+	 */
 	public function signed_in() {
 
 		return get_option( self::USER_SIGNED_IN );
 	}
 
+	/**
+	 * Signs in a user with an Account Key or a Token-Secret combination.
+	 * @param string $account_key 
+	 * @param string $api_token 
+	 * @param string $api_secret 
+	 * @return boolean
+	 */
 	public function sign_in( $account_key, $api_token, $api_secret ) {
 
 		delete_option( PushMonkeyClient::PLAN_NAME_KEY );
@@ -87,6 +115,9 @@ class PushMonkey {
 		return false;
 	}
 
+	/**
+	 * Signs out an user.
+	 */
 	public function sign_out() {
 
 		update_option( self::USER_SIGNED_IN, false );
@@ -96,6 +127,11 @@ class PushMonkey {
 		delete_option( PushMonkeyClient::PLAN_NAME_KEY );
 	}
 
+	/**
+	 * Puts together the welcome text displayed on the top 
+	 * right of the page, for signed in users.
+	 * @return string
+	 */
 	public function get_email_text() {
 
 		$email = get_option( self::EMAIL_KEY, '' );
@@ -104,6 +140,15 @@ class PushMonkey {
 			return "Hi " . $email . '!';
 		}
 		return '';
+	}
+
+	/**
+	 * Check if this is the subscription version of Push Monkey
+	 * @return boolean
+	 */
+	public function is_saas() {
+
+		return file_exists( plugin_dir_path( __FILE__ ) . '../.saas' ); 
 	}
 
 	const ACCOUNT_KEY_KEY = 'push_monkey_account_key';
@@ -116,6 +161,9 @@ class PushMonkey {
 
 	/* Private */
 
+	/**
+	 * Constructor that initializes the Push Monkey class.
+	 */
 	function __construct() {
 
 		if ( is_ssl() ) {
@@ -131,17 +179,9 @@ class PushMonkey {
 		$this->banner = new PushMonkeyBanner();
 	}
 
-	function set_defaults() {
-
-		// By default all posts should send push notifications
-		$post_types = get_option( self::POST_TYPES_KEY );
-		if ( ! $post_types ) {
-			
-			$post_types = $this->get_all_post_types();
-			add_option( self::POST_TYPES_KEY, $post_types );
-		}
-	}
-
+	/**
+	 * Adds all the WordPress action hooks required by Push Monkey.
+	 */
 	function add_actions() {
 
 		add_action( 'init', array( $this, 'process_forms' ) );
@@ -162,11 +202,13 @@ class PushMonkey {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'notification_preview_scripts' ) );
 
-		if( ! $this->has_account_key() ) {
+		// If not signed in, display an admin_notice prompting the user to sign in.
+		if( ! $this->signed_in() ) {
 
-			add_action( 'admin_notices', array( $this, 'big_invalid_account_key_notice' ) );
+			add_action( 'admin_notices', array( $this, 'big_sign_in_notice' ) );
 		}
 
+		// If the plan is expired, present an admin_notice informing the user.
 		if ( $this->can_show_expiration_notice() ) {
 			
 			add_action( 'admin_notices', array( $this, 'big_expired_plan_notice' ) );
@@ -177,13 +219,32 @@ class PushMonkey {
 		add_action( 'wp_ajax_push_monkey_banner_position', array( $this->ajax, 'banner_position_changed' ) );
 	}
 
+	/**
+	 * Set some default values.
+	 */
+	function set_defaults() {
+
+		// By default all posts should send push notifications
+		$post_types = get_option( self::POST_TYPES_KEY );
+		if ( ! $post_types ) {
+			
+			$post_types = $this->get_all_post_types();
+			add_option( self::POST_TYPES_KEY, $post_types );
+		}
+	}
+
+	/**
+	 * Callback to add the dashboard widgets.
+	 */
 	function add_dashboard_widgets() {
 
-		//TODO: Use only _ or -, not both!
 		wp_add_dashboard_widget( 'push-monkey-push-dashboard-widget', 'Send Push Notification - Push Monkey', array( $this, 'push_widget' ) );	
 		wp_add_dashboard_widget( 'push-monkey-stats-dashboard-widget', 'Stats - Push Monkey', array( $this, 'stats_widget') );	
 	}
 
+	/**
+	 * Render the Custom Push Dashboard Widget.
+	 */
 	function push_widget() {
 
 		$posted = isset( $_GET['posted'] );
@@ -195,9 +256,11 @@ class PushMonkey {
 		}
 		$settings_url = admin_url( 'admin.php?page=push_monkey_main_config&push_monkey_signup=1' );
 		require_once( plugin_dir_path( __FILE__ ) . '../templates/widgets/push_monkey_push_widget.php' ); 
-		//TODO: move template loading to a TemplateLoader
 	}
 
+	/**
+	 * Render the Stats Dashboard Widget.
+	 */
 	function stats_widget() {
 
 		if( ! $this->has_account_key() ) { 
@@ -222,6 +285,9 @@ class PushMonkey {
 		echo '<a href="' . admin_url( 'admin.php?page=push_monkey_main_config' ) . '">What is this?</a>';
 	}
 
+	/**
+	 * Register the Settings screen - the screen where Push Monkey is configured.
+	 */
 	function register_settings_screen() {
 
 		$icon_url =	plugins_url( 'img/plugin-icon.png', plugin_dir_path( __FILE__ ) );
@@ -231,6 +297,9 @@ class PushMonkey {
 		add_action( 'admin_print_styles-' . $hook_suffix , array( $this, 'enqueue_styles_main_config' ) );
 	}
 
+	/**
+	 * Render the Settings Screen, where Push Monkey is configured.
+	 */
 	function settings_screen() {
 
 		$website_name_key = self::WEBSITE_NAME_KEY;
@@ -260,6 +329,7 @@ class PushMonkey {
 		$cats = $this->get_all_categories();
 		$set_post_types = $this->get_set_post_types();
 		$post_types = $this->get_all_post_types();
+		// Banner options
 		$banner_position = $this->banner->get_position();
 		$banner_position_classes = array( 
 			'top' => 'banner-top', 
@@ -272,12 +342,16 @@ class PushMonkey {
 			'centerLeft' => 'banner-center-left',
 			'centerRight' => 'banner-center-right'
 			 );
+		$banner_text = $this->banner->get_raw_text();
+		$banner_color = $this->banner->get_color();
+		$banner_disabled_home = $this->banner->get_disabled_on_home();
 		
 		$has_account_key = false;
 		$output = NULL;
 		$plan_name = NULL;
 		$plan_can_upgrade = false;
 		$plan_expired = false;
+		// Define image sources here, to have access to relative paths.
 		$placeholder_url = plugins_url( 'img/plugin-stats-placeholder.jpg', plugin_dir_path( __FILE__ ) );
 		$img_notifs_src = plugins_url( 'img/plugin-feature-image-notifications.png', plugin_dir_path( __FILE__ ) );
 		$img_stats_src = plugins_url( 'img/plugin-feature-image-stats.png', plugin_dir_path( __FILE__ ) );
@@ -301,11 +375,14 @@ class PushMonkey {
 		$logout_url = admin_url( 'admin.php?page=push_monkey_main_config&logout=1' );
 		$email = $this->get_email_text();
 		$upgrade_url = $this->apiClient->endpointURL . '/dashboard?upgrade_plan=1&source=plugin';
-		$banner_text = $this->banner->get_raw_text();
-		$banner_color = $this->banner->get_color();
+		$is_subscription_version = $this->is_saas();
 		require_once( plugin_dir_path( __FILE__ ) . '../templates/push_monkey_settings.php' );
 	}
 
+	/**
+	 * Get all the post categories.
+	 * @return array
+	 */
 	function get_all_categories() {
 
 		$args=array(
@@ -337,6 +414,9 @@ class PushMonkey {
 		return $post_types;
 	}
 
+	/**
+	 * Register the meta box for the Notification Preview, when adding a new Post.
+	 */
 	function add_meta_box() {
 		
 		$post_types = $this->get_all_post_types();
@@ -347,6 +427,9 @@ class PushMonkey {
 		}
 	}
 
+	/**
+	 * Render the meta box for Notification Preview.
+	 */
 	function notification_preview_meta_box( $post ) {
 
 		wp_nonce_field( 'push_monkey_meta_box', 'push_monkey_meta_box_nonce' );
@@ -408,7 +491,10 @@ class PushMonkey {
 		echo '<p class="howto">Disabling push notifications doesn\'t send notifications even if the marked post category normally does. <a href="http://www.getpushmonkey.com/help#q9">Help? &#8594;</a></p>';
 	}
 
-	function notification_preview_scripts( $hook_suffix) {
+	/**
+	 * Load scripts for Notification Preview Metabox
+	 */
+	function notification_preview_scripts( $hook_suffix ) {
 
 		if( 'post.php' == $hook_suffix || 'post-new.php' == $hook_suffix ) {
 
@@ -416,13 +502,19 @@ class PushMonkey {
 		}
 	}
 
+	/**
+	 * Action executed when the Settings Screen has loaded
+	 */
 	function settings_screen_loaded() {
 
-		remove_action( 'admin_notices', array( $this, 'big_invalid_account_key_notice' ) );
+		remove_action( 'admin_notices', array( $this, 'big_sign_in_notice' ) );
 		remove_action( 'admin_notices', array( $this, 'big_expired_plan_notice' ) );
 		add_action( 'admin_notices', array( $this, 'big_welcome_notice' ) );
 	}
 
+	/**
+	 * Action executed when a new post transitions its status.
+	 */
 	function post_published( $new_status, $old_status, $post ) {
 
 		if ( ! $this->has_account_key() ) {
@@ -464,6 +556,10 @@ class PushMonkey {
 		}
 	} 
 
+	/**
+	 * Checks if the author did not manually disable push notification for
+	 * this specific Post, but clicking on the opt-out checkbox.
+	 */
 	function can_verify_optout() {
 
 		// Check if our nonce is set.
@@ -493,6 +589,11 @@ class PushMonkey {
 		return true;
 	}
 
+	/**
+	 * Checks if a Post object is excluded from sending desktop push notifications.
+	 * @param object $post 
+	 * @return boolean
+	 */
 	function post_has_excluded_category( $post ) {
 
 		$excluded_categories = $this->get_excluded_categories();
@@ -513,6 +614,10 @@ class PushMonkey {
 		return false;
 	}
 
+	/**
+	 * Get an array of categories which are marked for not sending desktop push notifications.
+	 * @return array of category IDs
+	 */
 	function get_excluded_categories() {
 
 		$defaults = array();
@@ -526,6 +631,13 @@ class PushMonkey {
 		return $options;
 	}
 
+	/**
+	 * This is the actual point when the Push Monkey API is contacted and the notification is sent.
+	 * @param string $title 
+	 * @param string $body 
+	 * @param string $url_args 
+	 * @param boolean $custom 
+	 */
 	function send_push_notification( $title, $body, $url_args, $custom ) {
 
 		$account_key = $this->account_key();
@@ -545,6 +657,11 @@ class PushMonkey {
 		$this->apiClient->send_push_notification( $account_key, $title, $body, $url_args, $custom );
 	}
 
+	/**
+	 * Get the name of the website. Can be either from get_bloginfo() or
+	 * from a previously saved value.
+	 * @return string
+	 */
 	function website_name() {
 
 		$name = get_option( self::WEBSITE_NAME_KEY, false );
@@ -555,6 +672,10 @@ class PushMonkey {
 		return $name;
 	}
 
+	/**
+	 * Get the Website Push ID stored.
+	 * @return string
+	 */
 	function website_push_ID() {
 
 		$stored_website_push_id = get_option( self::WEBSITE_PUSH_ID_KEY, false);
@@ -574,8 +695,12 @@ class PushMonkey {
 			
 			$this->error = $resp->error;
 		}
+		return '';
 	}
 
+	/**
+	 * Enqueue all the JS files required.
+	 */
 	function enqueue_scripts() {
 
 		if ( ! is_admin() ) {
@@ -591,7 +716,9 @@ class PushMonkey {
 				'banner_icon_url_v2' => plugins_url( 'img/banner-icon-v2.png', dirname( __FILE__ ) ),
 				'banner_position' => $this->banner->get_position(),
 				'banner_text' => $this->banner->get_text( $this->website_name() ),
-				'banner_color' => $this->banner->get_color()
+				'banner_color' => $this->banner->get_color(),
+				'home_url' => home_url($path = '/'),
+				'disabled_on_home' => $this->banner->get_disabled_on_home()
 			);
 			wp_localize_script( 'push_monkey_wp', 'push_monkey_locals', $local_vars );
 		} else {
@@ -605,10 +732,12 @@ class PushMonkey {
 			wp_enqueue_script( 'push_monkey_bootstrap_picker', plugins_url( 'js/bootstrap-colorpicker.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ) );
 			wp_enqueue_script( 'push_monkey_admin', plugins_url( 'js/push_monkey_admin.js', plugin_dir_path( __FILE__ ) ), 
 				array( 'jquery', 'push_monkey_bootstrap_switch', 'push_monkey_bootstrap_select', 'push_monkey_bootstrap_picker' ) );
-			
 		}
 	}
 
+	/**
+	 * Enqueue all the CSS required.
+	 */
 	function enqueue_styles( $hook_suffix ) {
 
 		if ( is_admin() ) {
@@ -626,11 +755,17 @@ class PushMonkey {
 		}
 	}
 
+	/**
+	 * Enqueue the CSS for the Settings page
+	 */
 	function enqueue_styles_main_config( ) {
 
 		wp_enqueue_style( 'push_monkey_config_style', plugins_url( 'css/main-config.css', plugin_dir_path( __FILE__ ) ) );
 	}
 
+	/**
+	 * Central point to process forms.
+	 */
 	function process_forms() {
 
 		if ( isset( $_GET['logout'] ) ) {
@@ -661,6 +796,9 @@ class PushMonkey {
 		}
 	}
 
+	/**
+	 * Process the Sign In form.
+	 */
 	function process_sign_in( $post ) {
 
 		$api_token = $post['username'];
@@ -679,6 +817,9 @@ class PushMonkey {
 		}
 	}
 
+	/**
+	 * Process the form with the website name field, from the Settings page.
+	 */
 	function process_main_config( $post ) {
 
 		$website_name = $post[self::WEBSITE_NAME_KEY];
@@ -688,6 +829,9 @@ class PushMonkey {
 		}
 	}
 
+	/**
+	 * Process the form that marks which Post Categories don't sent desktop push notifications.
+	 */
 	function process_category_exclusion( $post ) {
 
 		$categories = array();
@@ -699,6 +843,9 @@ class PushMonkey {
 		add_action( 'admin_notices', array( $this, 'excluded_categories_saved_notice' ) );
 	}
 
+	/**
+	 * Process the form that marks which Post Types send desktop push notifications.
+	 */
 	function process_post_type_inclusion( $post ) {
 
 		$post_types = array();
@@ -713,6 +860,9 @@ class PushMonkey {
 		add_action( 'admin_notices', array( $this, 'included_post_types_saved_notice' ) );
 	}
 
+	/**
+	 * Process the custom push notification, from the widget in the Dashboard.
+	 */
 	function process_push( $post ) {
 
 		$title = stripcslashes( $post['title'] );
@@ -723,6 +873,9 @@ class PushMonkey {
 		exit();
 	}
 
+	/**
+	 * Process the options to customise the banner.
+	 */
 	function process_banner_customisation( $post ) {
 
 		if ( isset( $post['push_monkey_banner_text'] ) ) {
@@ -735,31 +888,48 @@ class PushMonkey {
 			$color = $post['push_monkey_banner_color'];
 			$this->banner->set_color( $color );
 		}
+		$disabled_on_home = isset( $post['push_monkey_banner_disabled_on_home'] );			
+		$this->banner->set_disabled_on_home( $disabled_on_home );
 		add_action( 'admin_notices', array( $this, 'banner_saved_notice' ) );
 	}
 
-	function big_invalid_account_key_notice() {
+	/**
+	 * Renders the admin notice that prompts the user to sign in.
+	 */
+	function big_sign_in_notice() {
 
 		$image_url = plugins_url( 'img/plugin-big-message-image.png', plugin_dir_path( __FILE__ ) );
 		$settings_url = admin_url( 'admin.php?page=push_monkey_main_config' );
 		require_once( plugin_dir_path( __FILE__ ) . '../templates/messages/push_monkey_big_message.php' );
 	}
 
+	/**
+	 * Renders an admin notice to say that excluded categories are saved.
+	 */
 	function excluded_categories_saved_notice() {
 
 		echo '<div class="updated"><p>Excluded categories successfuly updated! *victory dance*</p></div>';
 	}
 
+	/**
+	 * Renders an admin notice to say that post types are saved.
+	 */
 	function included_post_types_saved_notice() {
 
 		echo '<div class="updated"><p>Included Post Types successfuly updated! *high five*</p></div>';	
 	}
 
+	/**
+	 * Renders an admin notice to say that the banner customisation has been saved.
+	 */
 	function banner_saved_notice() {
 
 		echo '<div class="updated"><p>Banner saved! *high five*</p></div>';	
 	}
 
+	/**
+	 * Renders a notice to say that the chosen plan is expired.
+	 */
 	function big_expired_plan_notice() {
 
 		if ( ! $this->signed_in() ) {
@@ -786,6 +956,10 @@ class PushMonkey {
 		require_once( plugin_dir_path( __FILE__ ) . '../templates/messages/push_monkey_big_expiration_notice.php' );
 	}
 
+	/**
+	 * Checks the Push Monkey API to see if the current price plan expired.
+	 * @return boolean
+	 */
 	function can_show_expiration_notice() {
 
 		if ( ! $this->signed_in() ) {
@@ -797,6 +971,9 @@ class PushMonkey {
 		return $plan_expired;
 	}
 
+	/**
+	 * Renders an admin notice asking the user for an upgrade.
+	 */
 	function big_upsell_notice() {
 
 		global $hook_suffix;	
@@ -831,6 +1008,9 @@ class PushMonkey {
 		}
 	}
 
+	/**
+	 * Renders an admin notice for a first time user. Displays a few useful links to get started.
+	 */
 	function big_welcome_notice() {
 
 		$push_monkey_welcome_notice_cookie = isset( $_COOKIE['push_monkey_welcome_notice'] ) ? $_COOKIE['push_monkey_welcome_notice'] : false;

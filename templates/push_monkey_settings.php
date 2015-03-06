@@ -42,7 +42,7 @@
 						</div><!-- .col -->
 					</div><!-- .item -->
 					<div class="item <?php if( $sign_up ) { echo 'active'; } ?>">
-						<div class="col-md-4 col-md-offset-2">
+						<div class="col-md-4 col-md-offset-<?php if($is_subscription_version) { echo '2'; } else { echo '3'; } ?>">
 							<div class="login-box">
 								<form method="GET" action="<?php echo $register_url; ?>">
 									<div class="row text-center">
@@ -65,12 +65,14 @@
 								</form>
 							</div><!-- .login-box -->
 						</div><!-- .col -->	
+						<?php if ($is_subscription_version){ ?>
 						<div class="col-md-3">
 								<br /><br /><br /><br />
 								<br />
 								<br />
 								<img src="<?php echo $img_free_trial_src; ?>"/>
 						</div><!-- .col -->
+						<?php } ?>
 					</div><!-- .item -->
 				</div><!-- .carousel-inner -->
 			</div><!-- .carousel -->
@@ -308,6 +310,14 @@
 					<span class="glyphicon glyphicon-ok"></span> Saved
 					</p>
 				</div><!-- .col -->
+			</div><!-- .row -->
+			<div class="row form-group">
+				<label class="col-md-2 control-label">Disabled on Home</label>
+				<div class="col-md-4">
+					<input type="checkbox" data-on-text="Yes" data-off-text="No" data-on-color="success" 
+					name="push_monkey_banner_disabled_on_home" value="1" <?php if ( $banner_disabled_home ) { echo 'checked="true" '; } ?>/>
+					<span class="help-block">When "Yes", the banner is disabled on the homepage, but active on all other parts of your website.</span>
+				</div>
 			</div><!-- .row -->
 			<div class="row form-group">
 				<label class="col-md-2 control-label">Banner Text</label>
