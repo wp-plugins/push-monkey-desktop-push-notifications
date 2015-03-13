@@ -5,7 +5,7 @@ Tags: push notifications, push messages, Safari, Apple, Mavericks, Mac, push, no
 
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 0.9.9.9.2
+Stable tag: 0.9.9.9.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,6 +93,10 @@ Automatic updates should work without any problems; If you do encounter any prob
 5. Informational banner seen by Mac readers who come to your website from other browsers than Safari
 
 == Changelog ==
+
+= v 0.9.9.9.3 =
+ * update stats layout
+ * added new "Notification Format" feature. You can now configure what the notification content is. Currently two options are available: Post title and Post body OR custom title and post title.
 
 = v 0.9.9.9.2 =
  * add option to disable CTA banners on homepage only, while being enabled on all other pages

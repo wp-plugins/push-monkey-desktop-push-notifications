@@ -1,20 +1,20 @@
 <div class="stats-container">
 	<div class="row clearfix">
 		<div class="col-left col">
-			<div class="number-box box-light-orange">
-				<p class="box-label">Subscribers</p>
-				<p class="box-value">
-					<?php echo $output->subscribers; ?>
-				</p>
-			</div><!-- .number-box -->
 			<div class="number-box box-green">
 				<p class="box-label">Sent Notifications</p>
 				<p class="box-value">
 					<?php echo $output->sent_notifications; ?>
 				</p>
 			</div><!-- .number-box -->
+			<div class="number-box box-light-orange">
+				<p class="box-label">Subscribers</p>
+				<p class="box-value">
+					<?php echo $output->subscribers; ?>
+				</p>
+			</div><!-- .number-box -->
 			<div class="number-box box-orange">
-				<p class="box-label">Notifications</p>
+				<p class="box-label">Posts</p>
 				<p class="box-value">
 					<?php echo $output->notifications; ?>
 				</p>
@@ -24,10 +24,10 @@
 			<div class="doughnut-chart-wrapper">
 				<canvas id="doughnut-chart"></canvas>
 				<div class="">
-					<div class="legend-dataset-three"> Remaining Notifications </div>
+					<div class="legend-dataset-two"> Sent Notifications	</div>
 				</div>
 				<div class="">
-					<div class="legend-dataset-two"> Sent Notifications	</div>
+					<div class="legend-dataset-three"> Remaining Notifications </div>
 				</div>
 			</div> 
 		</div><!-- .col-right -->

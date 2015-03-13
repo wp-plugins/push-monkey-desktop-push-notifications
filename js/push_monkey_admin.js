@@ -60,7 +60,31 @@ jQuery(document).ready(function($) {
 	$("div.banner-color-input").colorpicker({
 		container: $('#picker_container'),
 	});
-	console.log('yeah');
+
+	$('input[type=radio]').visualRadioInput({
+		selected: function(radioInput) {
+
+			if (radioInput.val() == 'static-title') {
+
+				$('input#custom-text').prop('disabled', false);
+			} else {
+
+				$('input#custom-text').prop('disabled', true);				
+			}
+		}
+	});
+
+	var initialText = $('#push_monkey_preview_title').text();
+	$('input#custom-text').on("change keyup paste", function(){
+
+		var el = $(this);
+		var value = el.val();
+		if (!value.length) {
+
+			value = initialText;
+		}
+		$('#push_monkey_preview_title').html(value);
+	});
 });
 
 var CookieManager = {};
@@ -97,3 +121,57 @@ CookieManager.getCookie = function(c_name) {
     }
     return false;
 }
+
+(function ($) {
+
+	$.fn.visualRadioInput = function(options) {
+
+		var defaultOptions = $.extend({
+
+			selected: function(radioInput) {
+			}
+		}, options );
+		var foundElements = this;
+		return this.each(function(i, e) {
+
+			var el = $(e);
+			el.hide();
+			var visualInput = el.siblings('.selection-box');
+			if (visualInput.hasClass('selected')) {
+
+				visualInput.find('div.checkmark').show();
+				el.prop('checked', true);
+			} else {
+
+				visualInput.find('div.checkmark').hide();
+				el.prop('checked', false);
+			}
+			visualInput.click(function(){
+
+				var clickedEl = $(this);
+				if (! clickedEl.hasClass('selected')) {
+
+					$('form div.selection-box.selected').each(function(index, e) {
+
+						var el = $(e);
+						el.removeClass('selected');
+						el.find('.checkmark').hide();
+					});
+					clickedEl.addClass('selected');
+					clickedEl.find('.checkmark').show();
+					foundElements.each(function(j, e){
+
+						if (i == j) {
+
+							$(e).prop('checked', true);
+						} else {
+
+							$(e).prop('checked', false);
+						}
+					});
+					options.selected(el);
+				}
+			});
+		});
+	};
+}(jQuery));

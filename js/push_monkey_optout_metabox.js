@@ -1,7 +1,8 @@
-jQuery( document ).ready(function( $ ) {
+jQuery(document).ready(function($) {
 		var titleTag = $( '#poststuff input#title[name=post_title]' );
 		var metaboxTitle = $( '#push_monkey_post_opt_out strong#push_monkey_preview_title' );
 		var metaboxContent = $( '#push_monkey_post_opt_out span#push_monkey_preview_content' );
+
 		titleTag.keyup(function() {
 
 				var title = $( this ).attr( 'value' );
@@ -10,25 +11,34 @@ jQuery( document ).ready(function( $ ) {
 
 					title = title.substring( 0, max_len_title ) + '...';
 				}
-				metaboxTitle.html( title );
-			});
-		setInterval(function() {
+				if (!push_monkey_preview_locals.is_custom_text) {
 
-				var content;
-				if ( tinyMCE.activeEditor ) {
-
-					content = tinyMCE.activeEditor.getContent();
+					metaboxTitle.html(title);					
 				} else {
 
-					content = $( 'textarea#content' ).val();
+					metaboxContent.text(title);
 				}
+			});
+		if (!push_monkey_preview_locals.is_custom_text) {
 
-				var max_len_content = 70;
-				content = content.replace(/(<([^>]+)>)/ig,"");
-				if ( content.length > max_len_content ) {
+			setInterval(function() {
 
-					content = content.substring( 0, max_len_content ) + '...';
-				}
-				metaboxContent.text( content );
-			}, 1000);
+					var content;
+					if ( tinyMCE.activeEditor ) {
+
+						content = tinyMCE.activeEditor.getContent();
+					} else {
+
+						content = $( 'textarea#content' ).val();
+					}
+
+					var max_len_content = 70;
+					content = content.replace(/(<([^>]+)>)/ig,"");
+					if ( content.length > max_len_content ) {
+
+						content = content.substring( 0, max_len_content ) + '...';
+					}
+					metaboxContent.text( content );
+				}, 1000);
+		}
 	});

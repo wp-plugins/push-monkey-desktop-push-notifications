@@ -6,12 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once( plugin_dir_path( __FILE__ ) . './class_push_monkey_model.php' );
 require_once( plugin_dir_path( __FILE__ ) . '../includes/class_push_monkey_debugger.php' );
 
 /**
  * Banner model to set and get properties related to the CTA Banner.
  */
-class PushMonkeyBanner {
+class PushMonkeyBanner extends PushMonkeyModel {
 
 	/* Public */
 

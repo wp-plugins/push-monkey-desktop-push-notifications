@@ -10,6 +10,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_client.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_ajax.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_debugger.php' );
 require_once( plugin_dir_path( __FILE__ ) . '../models/class_push_monkey_banner.php' );
+require_once( plugin_dir_path( __FILE__ ) . '../models/class_push_monkey_notification_config.php' );
 
 
 /**
@@ -177,6 +178,7 @@ class PushMonkey {
 		$this->d = new PushMonkeyDebugger();
 		$this->ajax = new PushMonkeyAjax();
 		$this->banner = new PushMonkeyBanner();
+		$this->notif_config = new PushMonkeyNotificationConfig();
 	}
 
 	/**
@@ -282,7 +284,7 @@ class PushMonkey {
 			$output = $this->apiClient->get_stats( $account_key );
 			require_once( plugin_dir_path( __FILE__ ) . '../templates/widgets/push_monkey_stats_widget.php' );
 		}
-		echo '<a href="' . admin_url( 'admin.php?page=push_monkey_main_config' ) . '">What is this?</a>';
+		echo '<a href="http://www.getpushmonkey.com/help?source=plugin#q4">What is this?</a>';
 	}
 
 	/**
@@ -376,6 +378,14 @@ class PushMonkey {
 		$email = $this->get_email_text();
 		$upgrade_url = $this->apiClient->endpointURL . '/dashboard?upgrade_plan=1&source=plugin';
 		$is_subscription_version = $this->is_saas();
+
+		//
+		// Notification Format
+		//
+		$notification_format_image = plugins_url( 'img/notification-image-upload-placeholder.png', plugin_dir_path( __FILE__ ) );
+		$notification_format = $this->notif_config->get_format();
+		$notification_is_custom = $this->notif_config->is_custom_text();
+		$notification_custom_text = $this->notif_config->get_custom_text();
 		require_once( plugin_dir_path( __FILE__ ) . '../templates/push_monkey_settings.php' );
 	}
 
@@ -447,7 +457,7 @@ class PushMonkey {
 			$disabled = ' disabled="disabled"';
 		}
 
-		$account_key = '11';
+		$account_key = '';
 		if( $this->has_account_key() ) {
 
 			$account_key = $this->account_key();
@@ -455,22 +465,31 @@ class PushMonkey {
 
 		$max_len_title = 33;
 		$title = strip_tags($post->post_title);
+		if ( $this->notif_config->is_custom_text() ) {
+
+			$title = $this->notif_config->get_custom_text();
+		}
 		if ( strlen( $title ) > $max_len_title ) {
 
 			$title = substr( $title, 0, $max_len_title ) . '...';
 		}
 
 		$max_len_body = 70;
-		$body = strip_tags($post->post_content);
+		$body = strip_tags(strip_shortcodes($post->post_content));
+		if ( $this->notif_config->is_custom_text() ) {
+
+			$body = strip_tags($post->post_title);
+		}
 		if ( strlen( $body ) > $max_len_body ) {
 
 			$body = substr( $body, 0, $max_len_body ) . '...';
 		}
+		$register_url = $return_url = admin_url( 'admin.php?page=push_monkey_main_config' );
 
 ?>
 	<div class="preview-container">
 		<?php if( ! $account_key ) { ?>
-		<div class="error-message"> <p>Set an Account Key before you can use Push Monkey. Don't have an Account Key yet? <a href="http://www.getpushmonkey.com/register?source=plugin">Click here to get one</a>. <a href="http://www.getpushmonkey.com/help?source=plugin#q4">More info about this</a>.</p> </div>
+		<div class="error-message"> <p>Sign In before you can use Push Monkey. Don't have an account yet? <a href="<?php echo $register_url; ?>">Click here to Sign Up</a>. <a href="http://www.getpushmonkey.com/help?source=plugin#q4">More info about this</a>.</p> </div>
 		<?php } ?>
 		<h4>Notification Preview</h4>
 		<div class="notification">
@@ -499,6 +518,10 @@ class PushMonkey {
 		if( 'post.php' == $hook_suffix || 'post-new.php' == $hook_suffix ) {
 
 			wp_enqueue_script( 'custom_js', plugins_url('js/push_monkey_optout_metabox.js', dirname( __FILE__ ) ), array( 'jquery' ));
+			$local_vars = array(
+				'is_custom_text' => $this->notif_config->is_custom_text()
+			);
+			wp_localize_script( 'custom_js', 'push_monkey_preview_locals', $local_vars );
 		}
 	}
 
@@ -551,6 +574,11 @@ class PushMonkey {
 
 			$title = $post->post_title;
 			$body = strip_tags(strip_shortcodes($post->post_content));
+			if ( $this->notif_config->is_custom_text() ) {
+
+				$title = $this->notif_config->get_custom_text();
+				$body = $post->post_title;
+			}
 			$post_id = $post->ID;
 			$this->send_push_notification( $title, $body, $post_id, false );
 		}
@@ -793,6 +821,9 @@ class PushMonkey {
 		} else if ( isset( $_POST['push_monkey_banner'] ) ) {
 
 			$this->process_banner_customisation( $_POST );
+		} else if ( isset( $_POST['push_monkey_notification_config'] ) ) {
+
+			$this->process_notif_format( $_POST );
 		}
 	}
 
@@ -894,6 +925,28 @@ class PushMonkey {
 	}
 
 	/**
+	 * Process the notification format 
+	 */
+	function process_notif_format( $post ) {
+
+		$this->d->debug( 'notif format' );
+
+		if ( isset( $post['push_monkey_notification_format'] ) ) {
+			
+			$format = $post['push_monkey_notification_format'];
+
+			$this->d->debug( $format );
+			$this->notif_config->set_format( $format );
+		} 
+		if ( isset( $post['custom-text'] ) ) {
+
+			$text = $post['custom-text'];
+			$this->notif_config->set_custom_text( $text );
+		}
+		add_action( 'admin_notices', array( $this, 'notif_format_saved_notice' ) );
+	}
+
+	/**
 	 * Renders the admin notice that prompts the user to sign in.
 	 */
 	function big_sign_in_notice() {
@@ -925,6 +978,14 @@ class PushMonkey {
 	function banner_saved_notice() {
 
 		echo '<div class="updated"><p>Banner saved! *high five*</p></div>';	
+	}
+
+	/**
+	 * Renders an admin notice to say that the notification format has been saved.
+	 */
+	function notif_format_saved_notice() {
+
+		echo '<div class="updated"><p>Notification format saved! *yay*</p></div>';	
 	}
 
 	/**

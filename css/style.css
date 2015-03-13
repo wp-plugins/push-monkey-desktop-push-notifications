@@ -114,8 +114,8 @@ table.widefat {
 
 .stats-container .box-light-orange {
 	background-color: #363636;
-    border-left: 2px solid #f64747;
-    border-right: 2px solid #2fcc70;
+    border-left: 3px solid #f64747;
+    border-right: 3px solid #2fcc70;
 }
 
 .stats-container .box-green {
@@ -123,7 +123,7 @@ table.widefat {
 }
 
 .stats-container .box-orange {
-	background-color: #8e8e8b;
+	background-color: #363636;
 }
 
 .stats-container .legend-dataset-one,
@@ -390,6 +390,57 @@ form.settings {
     z-index: 2500;
 }
 
+/* ==================================================== Notification Format ========================== */
+
+.push-monkey .selection-box {
+	background: white;
+	border: 3px solid white;
+	cursor: pointer;
+    margin: 0 auto;
+    position:relative;
+    width: 100%;
+}
+
+.push-monkey .selection-box .selection-inner {
+    margin: 10px;
+    position:relative;
+}
+
+.push-monkey .selection-box .selection-inner .notification {
+	height: 52px;
+	padding:0;
+	padding-left: 10px;
+    padding-right: 10px;
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	width:200px;
+}
+
+.push-monkey .selection-box .selection-inner .notification .icon {
+	margin-top: 10px;
+}
+
+.push-monkey .selection-box .selection-inner .notification p {
+	float:left;
+	margin-top: 8px;
+	width:130px;
+}
+
+.push-monkey .selection-box .checkmark {
+	background: #2FCC70;
+	bottom:0;
+	color: white;
+	padding: 10px;
+	position: absolute;
+	right: 0;
+}
+
+.push-monkey .selection-box.selected {
+	border: 3px solid #2FCC70;
+}
+
+
 /* ==========================================================================
    Messages 
    ========================================================================== */
@@ -616,4 +667,70 @@ body.wp-admin #wpcontent div.push-monkey-welcome-notice {
     -ms-transition: color 0.1s ease-in;
     -o-transition: color 0.1s ease-in;
     transition: color 0.1s ease-in;
+}
+
+/* ==========================================================================
+   Opt Out Meta Box 
+   ========================================================================== */
+
+#push_monkey_post_opt_out .inside {
+	background:#E8E8E1;
+}
+
+#push_monkey_post_opt_out .inside {
+	margin-top:0;
+	padding-top:10px;
+}
+
+#push_monkey_post_opt_out .preview-container {
+}
+
+#push_monkey_post_opt_out .preview-container h4 {
+	margin:0;
+	margin-bottom: 10px;
+}
+
+.push-monkey .selection-box .notification,
+#push_monkey_post_opt_out .notification {
+	background:#dedede;
+	border-radius:6px;
+	border-bottom: 1px solid #bbbbbb;
+	border-right: 1px solid #bbbbbb;
+	height: 35px;
+	margin-bottom:20px;
+	padding:10px;
+}
+
+.push-monkey .selection-box .notification p,
+#push_monkey_post_opt_out .notification p {
+	font-size:10px;
+	line-height:1.3em;
+	margin:0;
+}
+
+.push-monkey .selection-box .notification .icon,
+#push_monkey_post_opt_out .notification .icon {
+	background: #dedede;
+	float:left;
+	height: 32px;
+	margin-right: 10px;
+	margin-top:3px;
+	width: 32px;
+}
+
+#push-monkey-push-dashboard-widget .error-message,
+#push-monkey-stats-dashboard-widget .error-message,
+#push_monkey_post_opt_out .error-message {
+	background:#fecfcf;
+	border-radius: 10px;
+	color:#c53131;
+	margin-bottom: 10px;
+	padding:10px;
+}
+
+#push-monkey-push-dashboard-widget .error-message p,
+#push-monkey-stats-dashboard-widget .error-message p,
+#push_monkey_post_opt_out .error-message p {
+	font-weight:normal;
+	margin:0;
 }

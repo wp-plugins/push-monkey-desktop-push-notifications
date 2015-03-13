@@ -14,6 +14,7 @@ if( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 require_once( plugin_dir_path( __FILE__ ) . 'push-monkey.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class_push_monkey_client.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'models/class_push_monkey_banner.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'models/class_push_monkey_notification_config.php' );
 
 delete_option( PushMonkey::ACCOUNT_KEY_KEY );
 delete_option( PushMonkey::EMAIL_KEY );
@@ -26,3 +27,6 @@ delete_option( PushMonkeyClient::PLAN_NAME_KEY );
 
 $banner = new PushMonkeyBanner();
 $banner->uninstall();
+
+$notif_config = new PushMonkeyNotificationConfig();
+$notif_config->uninstall();

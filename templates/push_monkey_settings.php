@@ -132,20 +132,20 @@
 		<?php } ?>
 		<div class="row stats-container">
 			<div class="col-md-2">
-				<div class="number-box box-light-orange">
-					<p class="box-label">Subscribers</p>
-					<p class="box-value">
-						<?php echo $output->subscribers; ?>
-					</p>
-				</div><!-- .number-box -->
 				<div class="number-box box-green">
 					<p class="box-label">Sent Notifications</p>
 					<p class="box-value">
 						<?php echo $output->sent_notifications; ?>
 					</p>
 				</div><!-- .number-box -->
+				<div class="number-box box-light-orange">
+					<p class="box-label">Subscribers</p>
+					<p class="box-value">
+						<?php echo $output->subscribers; ?>
+					</p>
+				</div><!-- .number-box -->
 				<div class="number-box box-orange">
-					<p class="box-label">Notifications</p>
+					<p class="box-label">Posts</p>
 					<p class="box-value">
 						<?php echo $output->notifications; ?>
 					</p>
@@ -343,6 +343,71 @@
 			<div class="row form-group">
 				<div class="col-md-3">
 					<input type="submit" name="push_monkey_banner" value="Update" class="btn btn-success" />					
+				</div><!-- .col -->				
+			</div><!-- .row -->
+		</form>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3 class="section-margin-top">Notifications Format</h3>
+				<p class="description">
+					You can customise how your readers see the notifications they receive, currently in 2 formats. 
+					Choose one of the options bellow.
+				</p>				
+			</div><!-- .col -->
+		</div><!-- .row -->
+
+		<form class="form-horizontal" method="post">	
+			<div class="row form-group">
+				<div class="col-md-3">
+					<input type="radio" name="push_monkey_notification_format" value="standard" class=""/>
+					<div class="selection-box <?php if ( ! $notification_is_custom ) { echo 'selected'; }?>">
+						<div class="selection-inner">
+							<img src="<?php echo $notification_format_image; ?>" class="img-responsive"/>
+							<div class="notification">
+								<img class="icon" src="<?php echo $this->endpointURL; ?>/clients/icon/<?php echo $account_key; ?>" />		
+								<p>
+									<strong>Fairly short post title</strong> 
+									<br /> 
+									<span>Post body that would fit inside the notification</span>
+								</p>
+							</div>
+						</div>
+						<div class="checkmark">
+							<span class="glyphicon glyphicon-ok"></span>
+						</div>
+					</div>
+				</div><!-- .col -->
+				<div class="col-md-3">
+					<input type="radio" name="push_monkey_notification_format" value="static-title" class=""/>					
+					<div class="selection-box <?php if ( $notification_is_custom ) { echo 'selected'; }?>">
+						<div class="selection-inner">
+							<img src="<?php echo $notification_format_image; ?>" class="img-responsive"/>
+							<div class="notification">
+								<img class="icon" src="<?php echo $this->endpointURL; ?>/clients/icon/<?php echo $account_key; ?>" />		
+								<p>
+									<strong id="push_monkey_preview_title"><?php echo $notification_custom_text; ?></strong> 
+									<br /> 
+									<span id="push_monkey_preview_content">Longer post title that fits this are better</span>
+								</p>
+							</div>
+						</div>
+						<div class="checkmark">
+							<span class="glyphicon glyphicon-ok"></span>
+						</div>
+					</div>
+				</div><!-- .col -->
+			</div><!-- .row -->
+			<div class="row form-group">
+				<div class="col-md-3 col-md-offset-3">
+					<label for="custom-text" class="control-label">Custom Text</label>
+					<input name="custom-text" id="custom-text" class="form-control" <?php if ( ! $notification_is_custom ) { echo 'disabled'; }?> 
+					value="<?php echo $notification_custom_text; ?>"/>
+				</div><!-- .col -->
+			</div><!-- .row -->
+			<div class="row form-group">
+				<div class="col-md-3">
+					<input type="submit" name="push_monkey_notification_config" value="Update" class="btn btn-success" />					
 				</div><!-- .col -->				
 			</div><!-- .row -->
 		</form>
