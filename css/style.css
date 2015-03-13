@@ -1,0 +1,736 @@
+h3.mandatory {
+    color: #F64747;
+	margin:0;
+}
+
+tr.mandatory label {
+    color: #F64747;
+}
+
+tr.mandatory p {
+    color: #F64747;
+}
+
+tr.mandatory input {
+    background: none repeat scroll 0 0 #fecfcf;
+    border: 1px solid #F64747;
+}
+
+table.widefat {
+	margin-bottom:20px;
+}
+
+.section-margin-top {
+	margin-top: 80px;
+}
+
+
+/* ==========================================================================
+   Bootstrap over-writes
+   ========================================================================== */
+
+.push-monkey {
+	color: #8e8e8b;
+	font-size:14px;
+	margin-left: 160px;
+}
+
+.push-monkey label {
+	font-weight:normal;
+    margin: 10px 0 0;
+}
+
+.push-monkey label.first {
+    margin-top: 30px;
+}
+
+.push-monkey form input.btn-success {
+    margin-bottom: 20px;
+    margin-top: 30px;
+    width: 50%;
+}
+
+.push-monkey .btn-success, 
+.push-monkey .btn-success.submit {
+    background: none repeat scroll 0 0 #2ecc71;
+    outline: 0;
+}
+
+.push-monkey .btn-default,
+.push-monkey .btn-primary,
+.push-monkey .btn-success,
+.push-monkey .btn-info,
+.push-monkey .btn-warning,
+.push-monkey .btn-danger {
+	box-shadow:none;
+	font-weight:bold;
+	text-shadow:none;
+}
+
+.push-monkey a {
+	color:#363636;
+	font-weight: bold;
+}
+
+.push-monkey a:hover {
+	color:#2FCC70;
+	text-decoration: none;
+	-webkit-transition: color 0.2s ease-in-out;
+	-o-transition: color 0.2s ease-in-out;
+	transition: color 0.2s ease-in-out;
+}
+
+.push-monkey .form-horizontal .control-label {
+	padding-top:0;
+}
+
+
+/* ==========================================================================
+   Stats
+   ========================================================================== */
+
+.stats-container .number-box {
+	border-radius:10px;
+	color:white;
+	margin-bottom:20px;
+	padding: 10px 0;
+	text-align:center;
+}
+
+.stats-container .number-box .box-label {
+	font-size:15px;
+	line-height: 1.3em;
+	margin:0;
+	vertical-align:middle;
+}
+
+.stats-container .number-box .box-value {
+	font-size:30px;
+	font-weight:bold;
+	line-height: 1em;
+	margin:0;
+	margin-top: 4px;
+}
+
+.stats-container .box-light-orange {
+	background-color: #363636;
+    border-left: 3px solid #f64747;
+    border-right: 3px solid #2fcc70;
+}
+
+.stats-container .box-green {
+	background-color: #2fcc70;
+}
+
+.stats-container .box-orange {
+	background-color: #363636;
+}
+
+.stats-container .legend-dataset-one,
+.stats-container .legend-dataset-two,
+.stats-container .legend-dataset-three {
+	background-color:#363636;
+	border-radius:10px;
+	color:white;
+	font-size:14px;
+	margin-top:20px;
+	padding:4px 0;
+	text-align:center;
+}
+
+.stats-container .legend-dataset-two {
+	background-color:#2FCC70;
+}
+
+.stats-container .legend-dataset-three {
+	background-color:#8E8E8B;
+}
+
+#push-monkey-settings-wrapper .stats-container .col {
+	float:left;
+}
+
+#push-monkey-settings-wrapper .stats-container .doughnut-chart-wrapper .legend-dataset-two,
+#push-monkey-settings-wrapper .stats-container .doughnut-chart-wrapper .legend-dataset-three {
+	margin-left:auto;
+	margin-right:auto;
+	width:70%;
+}
+
+#push-monkey-settings-wrapper .stats-container .doughnut-chart-wrapper {
+	text-align:center;
+}
+
+#push-monkey-settings-wrapper #doughnut-chart {
+	margin:0 auto;
+}
+
+#push-monkey-settings-wrapper .stats-container .col-chart-legend {
+	padding:0 5%;
+	width: 39%;
+}
+/* ==========================================================================
+   Modal
+   ========================================================================== */
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+.push_monkey_modal {
+	background: white;
+	display:none;
+	padding: 30px; 
+	border-radius: 5px;
+
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.7); 
+	-webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); 
+	-moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+
+.push_monkey_modal p { 
+	color: #666; 
+	text-shadow: none; 
+}
+
+.push_monkey_modal_footer {
+	margin-top:30px;
+	text-align:right;
+}
+
+.push_monkey_modal_footer .button {
+	margin-left:10px;
+}
+
+/* ==========================================================================
+   Settings Page
+   ========================================================================== */
+
+#push-monkey-settings-wrapper {
+}
+
+.push-monkey .login-box {
+	background: none repeat scroll 0 0 #363636;
+	border-left: 2px solid #f64747;
+	border-radius: 10px;
+	border-right: 2px solid #2fcc70;
+	margin: 0;
+}
+
+.push-monkey .login-box .bg-danger {
+	border-radius: 10px;
+	color:#F64747;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+.push-monkey .login-box .bg-danger {
+	border-radius: 10px;
+	color:#F64747;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+.push-monkey .new-account-box {
+	margin-top:100px;
+}
+
+form {
+}
+
+.push-monkey .header {
+	margin-bottom:70px;
+}
+
+.push-monkey .footer {
+	margin-top:70px;
+}
+
+.push-monkey form .btn-primary {
+    background: none repeat scroll 0 0 #363636;
+    border: 1px solid white;
+    color: white;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+.push-monkey form .btn-primary:active,
+.push-monkey form .btn-primary:focus,
+.push-monkey form .btn-primary:hover {
+	background:#363636;
+    border-color: #8e8e8b;
+    color: #8e8e8b;
+}
+
+.push-monkey .bg-success {
+	background: #2FCC70;
+	border-radius: 10px;
+	color:white;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+.push-monkey p.bg-success {
+	margin:0;
+}
+
+.red {
+	background:red;
+}
+
+.blue {
+	background:blue;
+}
+
+.green {
+	background:green;
+}
+
+form.settings {
+	margin-top: 55px;
+}
+
+.push-monkey .table-striped > tbody > tr {
+
+	background: white;
+}
+
+.push-monkey .banner-demo {
+	background: #f5f5f5;
+	border: 1px solid #e3e3e3;
+	border-radius: 6px;
+	height: 40px;
+	position: relative;
+	width: 100%;
+}
+
+.push-monkey .banner-demo .banner {
+	background: #2FCC70;
+	position:absolute;
+}
+
+.push-monkey .banner-demo .banner-top {
+	height: 5px;
+	left: 0;
+	top:0;
+	width: 100%;
+}
+
+.push-monkey .banner-demo .banner-bottom {
+	bottom:0;
+	height: 5px;
+	left: 0;
+	width: 100%;
+}
+
+.push-monkey .banner-demo .banner-top-left {
+	height: 15px;
+	left: 0;
+	top:0;
+	width: 20%;
+}
+
+.push-monkey .banner-demo .banner-top-right {
+	height: 15px;
+	right: 0;
+	top:0;
+	width: 20%;
+}
+
+.push-monkey .banner-demo .banner-bottom-left {
+	bottom:0;
+	height: 15px;
+	left: 0;
+	width: 20%;
+}
+
+.push-monkey .banner-demo .banner-bottom-right {
+	bottom:0;
+	height: 15px;
+	right: 0;
+	width: 20%;
+}
+
+.push-monkey .banner-demo .banner-center-left {
+	top:35%;
+	height: 15px;
+	left: 0;
+	width: 20%;
+}
+
+.push-monkey .banner-demo .banner-center-right {
+	top:35%;
+	height: 15px;
+	right: 0;
+	width: 20%;
+}
+
+.push-monkey .banner-demo .banner-disabled {
+	height:0;
+}
+
+#picker_container {
+	position:relative;
+}
+
+.push-monkey .dropdown-menu.colorpicker {
+    border-radius: 4px;
+    left: 0;
+    margin-top: 1px;
+    min-width: 130px;
+    padding: 4px;
+    top: 0;
+    z-index: 2500;
+}
+
+/* ==================================================== Notification Format ========================== */
+
+.push-monkey .selection-box {
+	background: white;
+	border: 3px solid white;
+	cursor: pointer;
+    margin: 0 auto;
+    position:relative;
+    width: 100%;
+}
+
+.push-monkey .selection-box .selection-inner {
+    margin: 10px;
+    position:relative;
+}
+
+.push-monkey .selection-box .selection-inner .notification {
+	height: 52px;
+	padding:0;
+	padding-left: 10px;
+    padding-right: 10px;
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	width:200px;
+}
+
+.push-monkey .selection-box .selection-inner .notification .icon {
+	margin-top: 10px;
+}
+
+.push-monkey .selection-box .selection-inner .notification p {
+	float:left;
+	margin-top: 8px;
+	width:130px;
+}
+
+.push-monkey .selection-box .checkmark {
+	background: #2FCC70;
+	bottom:0;
+	color: white;
+	padding: 10px;
+	position: absolute;
+	right: 0;
+}
+
+.push-monkey .selection-box.selected {
+	border: 3px solid #2FCC70;
+}
+
+
+/* ==========================================================================
+   Messages 
+   ========================================================================== */
+
+/* ==================================================== Unknown Client ========================== */
+
+body.wp-admin #wpcontent div.push-monkey-unknown-client {
+	background:#E8E8E1 no-repeat;
+	background-position: 98% bottom ;
+	border:0;
+	color:#363636;
+	height:100px;
+	padding:0;
+}
+
+.push-monkey-unknown-client .button-wrapper {
+	float:left;
+	margin-top: 30px;
+	min-width: 190px;
+	width: 15%;
+}
+
+.push-monkey-unknown-client .text-wrapper {
+	float: left;
+	margin-top: 30px;
+	width: 70%;
+}
+
+.push-monkey-unknown-client .text-wrapper h4 {
+	font-size: 18px;
+    margin: 0;
+}
+
+.push-monkey-unknown-client .text-wrapper a {
+	color:#363636;
+}
+
+.push-monkey-unknown-client .text-wrapper a:hover {
+	color:#2FCC70;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in;
+    -o-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in;
+}
+
+.push-monkey-btn {
+	background:#2FCC70;
+	border-radius:10px;
+	color:white;
+	display:block;
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom:15px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:15px;
+	text-align:center;
+	text-decoration:none !important;
+	width: 150px;
+}
+
+.push-monkey-btn:hover {
+	background:#46dd88;
+	color:white;
+    -webkit-transition: background 0.1s ease-in;
+    -moz-transition: background 0.1s ease-in;
+    -ms-transition: background 0.1s ease-in;
+    -o-transition: background 0.1s ease-in;
+    transition: background 0.1s ease-in;
+}
+
+.button-wrapper .push-monkey-btn {
+	margin: auto;
+}
+
+/* ==================================================== Expired Notice ========================== */
+
+body.wp-admin #wpcontent div.push-monkey-expired-notice {
+	background:#E8E8E1 no-repeat;
+	background-position: 98% bottom ;
+	border:0;
+	color:#363636;
+	height:100px;
+	padding:0;
+}
+
+.push-monkey-expired-notice .button-wrapper {
+	float:left;
+	margin-top: 30px;
+	min-width: 190px;
+	width: 15%;
+}
+
+.push-monkey-expired-notice .text-wrapper {
+	color: #F64747;
+	float: left;
+	margin-top: 15px;
+	width: 70%;
+}
+
+.push-monkey-expired-notice .text-wrapper h4 {
+	font-size: 18px;
+    margin: 0;
+}
+
+.push-monkey-expired-notice .text-wrapper a {
+	color:#363636;
+}
+
+.push-monkey-expired-notice .text-wrapper a:hover {
+	color:#2FCC70;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in;
+    -o-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in;
+}
+
+.push-monkey-expired-notice .push-monkey-btn {
+	background:#F64747;
+}
+
+.push-monkey-expired-notice .push-monkey-btn:hover {
+	background:#df3b3b;
+	color:white;
+    -webkit-transition: background 0.1s ease-in;
+    -moz-transition: background 0.1s ease-in;
+    -ms-transition: background 0.1s ease-in;
+    -o-transition: background 0.1s ease-in;
+    transition: background 0.1s ease-in;
+}
+
+/* ==================================================== Upsell Notice ========================== */
+
+body.wp-admin #wpcontent div.push-monkey-us-notice {
+	background:none no-repeat scroll 98% bottom #E8E8E1 !important;
+	border:0;
+	color:#363636;
+	height:100px;
+	padding:0;
+	position: relative;
+}
+
+.push-monkey-us-notice .push-monkey-btn {
+	background:#2FCC70;
+}
+
+.push-monkey-us-notice .button-wrapper {
+	float:left;
+	margin-top: 30px;
+	min-width: 190px;
+	width: 15%;
+}
+
+.push-monkey-us-notice .text-wrapper {
+	float: left;
+	margin-top: 30px;
+	width: 70%;
+}
+
+.push-monkey-us-notice .text-wrapper h4 {
+	font-size: 18px;
+    margin: 0;
+}
+
+.push-monkey-us-notice .text-wrapper a {
+	color:#363636;
+}
+
+.push-monkey-us-notice .text-wrapper a:hover {
+	color:#2FCC70;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in;
+    -o-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in;
+}
+
+.push-monkey-us-notice .push-monkey-btn:hover {
+	background:#46dd88;
+	color:white;
+    -webkit-transition: background 0.1s ease-in;
+    -moz-transition: background 0.1s ease-in;
+    -ms-transition: background 0.1s ease-in;
+    -o-transition: background 0.1s ease-in;
+    transition: background 0.1s ease-in;
+}
+
+.push-monkey-us-notice .close-btn {
+	opacity: 0.3;
+	position:absolute;
+	right:5px;
+	top:5px;
+}
+
+/* ==================================================== Welcome Notice ========================== */
+
+body.wp-admin #wpcontent div.push-monkey-welcome-notice {
+	background:none no-repeat scroll 50px 0px white;
+	border:0;
+	border-radius: 10px;
+	color:#363636;
+	padding:5px;
+	position: relative;
+}
+
+.push-monkey-welcome-notice .close-btn {
+	opacity: 0.3;
+	position:absolute;
+	right:10px;
+	top:5px;
+}
+
+.push-monkey-welcome-notice a {
+	color:#2FCC70;
+	text-decoration: underline;
+}
+
+.push-monkey-welcome-notice a:hover {
+	color:#363636;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in;
+    -o-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in;
+}
+
+/* ==========================================================================
+   Opt Out Meta Box 
+   ========================================================================== */
+
+#push_monkey_post_opt_out .inside {
+	background:#E8E8E1;
+}
+
+#push_monkey_post_opt_out .inside {
+	margin-top:0;
+	padding-top:10px;
+}
+
+#push_monkey_post_opt_out .preview-container {
+}
+
+#push_monkey_post_opt_out .preview-container h4 {
+	margin:0;
+	margin-bottom: 10px;
+}
+
+.push-monkey .selection-box .notification,
+#push_monkey_post_opt_out .notification {
+	background:#dedede;
+	border-radius:6px;
+	border-bottom: 1px solid #bbbbbb;
+	border-right: 1px solid #bbbbbb;
+	height: 35px;
+	margin-bottom:20px;
+	padding:10px;
+}
+
+.push-monkey .selection-box .notification p,
+#push_monkey_post_opt_out .notification p {
+	font-size:10px;
+	line-height:1.3em;
+	margin:0;
+}
+
+.push-monkey .selection-box .notification .icon,
+#push_monkey_post_opt_out .notification .icon {
+	background: #dedede;
+	float:left;
+	height: 32px;
+	margin-right: 10px;
+	margin-top:3px;
+	width: 32px;
+}
+
+#push-monkey-push-dashboard-widget .error-message,
+#push-monkey-stats-dashboard-widget .error-message,
+#push_monkey_post_opt_out .error-message {
+	background:#fecfcf;
+	border-radius: 10px;
+	color:#c53131;
+	margin-bottom: 10px;
+	padding:10px;
+}
+
+#push-monkey-push-dashboard-widget .error-message p,
+#push-monkey-stats-dashboard-widget .error-message p,
+#push_monkey_post_opt_out .error-message p {
+	font-weight:normal;
+	margin:0;
+}
