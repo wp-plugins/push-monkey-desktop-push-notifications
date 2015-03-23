@@ -1,4 +1,5 @@
 <div class="stats-container">
+	<?php if ( $notice ) { $notice->render(); } ?>
 	<div class="row clearfix">
 		<div class="col-left col">
 			<div class="number-box box-green">

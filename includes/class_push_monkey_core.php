@@ -9,9 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_client.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_ajax.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class_push_monkey_debugger.php' );
+require_once( plugin_dir_path( __FILE__ ) . './controllers/class_push_monkey_review_notice_controller.php' );
 require_once( plugin_dir_path( __FILE__ ) . '../models/class_push_monkey_banner.php' );
 require_once( plugin_dir_path( __FILE__ ) . '../models/class_push_monkey_notification_config.php' );
-
+require_once( plugin_dir_path( __FILE__ ) . '../models/class_push_monkey_review_notice.php' );
 
 /**
  * Main class that connects the WordPress API
@@ -106,6 +107,7 @@ class PushMonkey {
 					
 					update_option( self::EMAIL_KEY, $response->email );
 				}
+				$this->review_notice->setSignInDate( new DateTime() );
 				return true;
 			} 
 		}
@@ -121,7 +123,7 @@ class PushMonkey {
 	 */
 	public function sign_out() {
 
-		update_option( self::USER_SIGNED_IN, false );
+		delete_option( self::USER_SIGNED_IN );
 		delete_option( self::ACCOUNT_KEY_KEY );
 		delete_option( self::EMAIL_KEY );
 		delete_option( self::WEBSITE_PUSH_ID_KEY );
@@ -179,6 +181,7 @@ class PushMonkey {
 		$this->ajax = new PushMonkeyAjax();
 		$this->banner = new PushMonkeyBanner();
 		$this->notif_config = new PushMonkeyNotificationConfig();
+		$this->review_notice = new PushMonkeyReviewNotice();
 	}
 
 	/**
@@ -191,6 +194,8 @@ class PushMonkey {
 		add_action( 'init', array( $this, 'enqueue_scripts' ) );
 
 		add_action( 'init', array( $this, 'enqueue_styles' ) );
+
+		add_action( 'init', array( $this, 'catch_review_dismiss') );
 
 		add_action( 'init', array( $this, 'set_defaults'), 20 );
 
@@ -280,11 +285,27 @@ class PushMonkey {
 			echo '<img class="placeholder" src="' . plugins_url( 'img/plugin-stats-placeholder-small.jpg', plugin_dir_path( __FILE__ ) ) . '"/>';
 		} else {
 
+			$notice = null;
+			if ( $this->review_notice->canDisplayNotice() ) {
+
+				$notice = new PushMonkeyReviewNoticeController( $this->is_saas() );
+			}
 			$account_key = $this->account_key();
 			$output = $this->apiClient->get_stats( $account_key );
 			require_once( plugin_dir_path( __FILE__ ) . '../templates/widgets/push_monkey_stats_widget.php' );
 		}
 		echo '<a href="http://www.getpushmonkey.com/help?source=plugin#q4">What is this?</a>';
+	}
+
+	/**
+	 * See if the review notice has been dismissed
+	 */
+	function catch_review_dismiss() {
+
+		if ( isset( $_GET[PushMonkeyReviewNoticeController::REVIEW_NOTICE_DISMISS_KEY] ) ) {
+			
+			$this->review_notice->setDismiss( true );
+		}
 	}
 
 	/**
@@ -540,6 +561,12 @@ class PushMonkey {
 	 */
 	function post_published( $new_status, $old_status, $post ) {
 
+		if ( isset( $_POST['push_monkey_opt_out'] ) ) {
+
+			$optout = $_POST['push_monkey_opt_out'];
+			update_post_meta( $post->ID, '_push_monkey_opt_out', $optout );
+		}
+
 		if ( ! $this->has_account_key() ) {
 
 			return;
@@ -553,11 +580,11 @@ class PushMonkey {
 
 			return;			
 		}
-		if( ! $this->can_verify_optout() ) {
+		if( ! $this->can_verify_optout() && $old_status != 'future' ) {
 
 			return;
 		}
-		$optout = $_POST['push_monkey_opt_out'];
+		$optout = get_post_meta( $post->ID, '_push_monkey_opt_out', true );
 		$can_send_push = false;
 		if( $optout != 'on' ) {
 
@@ -565,10 +592,6 @@ class PushMonkey {
 
 				$can_send_push = true;
 			}
-			update_post_meta( $post->ID, '_push_monkey_opt_out', 'off' );
-		} else {
-
-			update_post_meta( $post->ID, '_push_monkey_opt_out', $optout );
 		}
 		if( $can_send_push ) {
 
@@ -1007,6 +1030,7 @@ class PushMonkey {
 		}
 		$stats = $this->apiClient->get_stats( $account_key );
 		if ( ! isset( $stats->subscribers ) ) {
+			
 			return;
 		}
 
@@ -1025,7 +1049,7 @@ class PushMonkey {
 
 		if ( ! $this->signed_in() ) {
 			
-			return;
+			return false;
 		}
 		$plan_response = $this->apiClient->get_plan_name( $this->account_key() );
 		$plan_expired = isset( $plan_response->expired ) ? $plan_response->expired : false;

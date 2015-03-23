@@ -39,7 +39,8 @@ class PushMonkeyClient {
 			
 			'account_key' => $account_key, 
 			'api_token' => $api_token, 
-			'api_secret' => $api_secret
+			'api_secret' => $api_secret,
+			'website_url' => site_url()
 			) );
 		$response = wp_remote_post( $sign_in_url, $args );
 		if ( is_wp_error( $response ) ) {

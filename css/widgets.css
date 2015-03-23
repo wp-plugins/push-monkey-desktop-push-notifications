@@ -117,6 +117,37 @@ html[xmlns] .clearfix {
 	width: 100%;
 }
 
+#push-monkey-stats-dashboard-widget .inside #review-notice .col-left {
+	margin-left: 2%;
+	width: 30%;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice .col-right {
+	margin-left: 4%;
+	width:62%;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice img {
+	margin-top: 2em;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice p {
+	text-align: left;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice a:hover {
+	text-decoration: underline;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice .review-dismiss {
+	color:#8e8e8b;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice .review-confirm {
+	color: #2FCC70;
+	float:right;
+}
+
 /* ==========================================================================
    Custom Push Widget 
    ========================================================================== */
