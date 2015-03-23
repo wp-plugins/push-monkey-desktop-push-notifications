@@ -1,0 +1,205 @@
+/* ==========================================================================
+   Clearfix
+   ========================================================================== */
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+
+/* ==========================================================================
+   Stats
+   ========================================================================== */
+
+#push-monkey-stats-widget {
+	height: 550px;
+	width: 100%;
+}
+
+#push-monkey-stats-dashboard-widget .inside {
+	background-color:#E8E8E1;
+	margin-top:0;
+	padding-top:10px;
+	text-align:right;
+}
+
+#push-monkey-stats-dashboard-widget .inside p {
+	text-align:center;
+}
+
+#push-monkey-stats-dashboard-widget .inside div.error-message p {
+	text-align:left;
+}
+
+#push-monkey-stats-dashboard-widget .error-message {
+	text-align:left;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container {
+	margin-bottom:20px;
+	margin-top:20px;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .col {
+	float:left;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .col-left {
+	margin-left:8%;
+	width:24%;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .col-right {
+	margin-left:2%;
+	width:64%;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .legend-dataset-one,
+#push-monkey-stats-dashboard-widget .stats-container .legend-dataset-two,
+#push-monkey-stats-dashboard-widget .stats-container .legend-dataset-three {
+	background-color:#363636;
+	border-radius:10px;
+	color:white;
+	font-size:14px;
+	margin-top:20px;
+	padding:4px 0;
+	text-align:center;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .legend-dataset-two {
+	background-color:#2FCC70;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .legend-dataset-three {
+	background-color:#8E8E8B;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .doughnut-chart-wrapper .legend-dataset-two,
+#push-monkey-stats-dashboard-widget .stats-container .doughnut-chart-wrapper .legend-dataset-three {
+	margin-left:auto;
+	margin-right:auto;
+	width:70%;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .chart-wrapper {
+	float:left;
+	height:200px;
+	width:100%;
+}
+
+#push-monkey-stats-dashboard-widget .stats-container .col-chart-legend {
+	padding:0 5%;
+	width: 39%;
+}
+
+#push-monkey-stats-dashboard-widget .placeholder {
+	display:block;
+	margin-bottom:20px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	width: 100%;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice .col-left {
+	margin-left: 2%;
+	width: 30%;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice .col-right {
+	margin-left: 4%;
+	width:62%;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice img {
+	margin-top: 2em;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice p {
+	text-align: left;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice a:hover {
+	text-decoration: underline;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice .review-dismiss {
+	color:#8e8e8b;
+}
+
+#push-monkey-stats-dashboard-widget .inside #review-notice .review-confirm {
+	color: #2FCC70;
+	float:right;
+}
+
+/* ==========================================================================
+   Custom Push Widget 
+   ========================================================================== */
+
+#push-monkey-push-dashboard-widget .inside,
+#push-monkey-push-dashboard-widget .container {
+	background:#E8E8E1;
+}
+
+#push-monkey-push-dashboard-widget .inside {
+	margin-top:0;
+	padding-top:11px;
+}
+
+#push-monkey-push-dashboard-widget .inside .button-primary {
+	background:#2fcc70;
+	border-color:#4cae4c;
+}
+
+
+#push-monkey-push-dashboard-widget label {
+	display:block;
+}
+
+#push-monkey-push-dashboard-widget label span {
+	color:#aaa;
+	font-size:11px;
+}
+
+#push-monkey-push-dashboard-widget .row {
+	margin-bottom:20px;
+}
+
+#push-monkey-push-dashboard-widget input,
+#push-monkey-push-dashboard-widget textarea {
+	width: 100%;
+}
+
+#push-monkey-push-dashboard-widget .button {
+	width:auto;
+}
+
+#push-monkey-push-dashboard-widget .updated-message {
+	background:#2FCC70;
+	border-radius: 10px;
+	color:white;
+	margin-bottom: 10px;
+	padding:10px;
+}
+
+#push-monkey-push-dashboard-widget .updated-message p {
+	font-weight:normal;
+	margin:0;
+}
+
